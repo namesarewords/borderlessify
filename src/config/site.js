@@ -15,7 +15,7 @@ export const siteConfig = {
 	meta:{
 		title: "Borderlessify",
 		description: "a program that makes games and windows that dont support borderless. Borderless",
-		keywords: "borderless window, borderless gaming, borderless fullscreen, windowed mode, fullscreen games, game utility, windows utility, window manager, gaming tool, borderless windowed, pc gaming, game optimization"
+		keywords: "borderless window, borderless gaming, borderless fullscreen, windowed mode, fullscreen games, game utility, windows utility, window manager, gaming tool, borderless windowed, pc gaming, game optimization",
 		image: `${SITE_URL}/og.jpg`,
 		twitterHandle: "",
 	},
