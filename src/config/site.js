@@ -14,8 +14,8 @@ export const siteConfig = {
 	},
 	meta:{
 		title: "Borderlessify",
-		description: "A polished, open-source SaaS template built with Astro and Tailwind CSS. Modular sections, dark mode, and a documented design system.",
-		keywords: "saas template, astro template, tailwind template, startup website, landing page, indie hacker",
+		description: "a program that makes games and windows that dont support borderless. Borderless",
+		keywords: "borderless window, borderless gaming, borderless fullscreen, windowed mode, fullscreen games, game utility, windows utility, window manager, gaming tool, borderless windowed, pc gaming, game optimization"
 		image: `${SITE_URL}/og.jpg`,
 		twitterHandle: "",
 	},
