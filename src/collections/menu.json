@@ -8,12 +8,12 @@
 		"url": "/features"
 	},
 	{
-		"name": "Pricing",
+		"name": "Supporter",
 		"url": "/pricing"
 	},
 	{
-		"name": "Blog",
-		"url": "/blog"
+		"name": "Changelog",
+		"url": "/changelog"
 	},
 	{
 		"name": "Contact",
