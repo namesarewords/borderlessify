@@ -25,32 +25,32 @@
   --color-neutral-900: #0f172a;
   --color-neutral-950: #070b14;
 
-  --color-primary: #8fd3ff;
-  --color-primary-rgb: 143, 211, 255;
-  --color-primary-strong: #6ec8ff;
-  --color-primary-dark: #5bbcff;
-  --color-primary-light: #b9e5ff;
-  --color-primary-light-dark: #8fd3ff;
-  --color-primary-lighter: #d9f2ff;
+  --color-primary: #3b82f6;
+  --color-primary-rgb: 59, 130, 246;
+  --color-primary-strong: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #60a5fa;
+  --color-primary-light-dark: #93c5fd;
+  --color-primary-lighter: #dbeafe;
 
-  --color-primary-bg: rgba(143, 211, 255, 0.12);
-  --color-primary-bg-light: rgba(143, 211, 255, 0.06);
+  --color-primary-bg: rgba(59, 130, 246, 0.12);
+  --color-primary-bg-light: rgba(59, 130, 246, 0.06);
 
-  --color-btn-primary: #8fd3ff;
-  --color-btn-primary-hover: #b9e5ff;
-  --color-btn-primary-dark: #6ec8ff;
-  --color-btn-primary-dark-hover: #8fd3ff;
+  --color-btn-primary: #2563eb;
+  --color-btn-primary-hover: #1d4ed8;
+  --color-btn-primary-dark: #3b82f6;
+  --color-btn-primary-dark-hover: #60a5fa;
 
-  --color-accent: #8fd3ff;
-  --color-accent-light: #cceeff;
+  --color-accent: #3b82f6;
+  --color-accent-light: #bfdbfe;
 
-  --color-bg-primary: #070b14;
-  --color-bg-secondary: #0c1220;
-  --color-bg-primary-light: #0a101c;
-  --color-bg-primary-deep: #050810;
+  --color-bg-primary: #070d1c;
+  --color-bg-secondary: #0c1526;
+  --color-bg-primary-light: #0a1220;
+  --color-bg-primary-deep: #050914;
 
-  --color-bg-primary-dark: #070b14;
-  --color-bg-secondary-dark: #0c1220;
+  --color-bg-primary-dark: #070d1c;
+  --color-bg-secondary-dark: #0c1526;
 
   --color-text-primary: #ffffff;
   --color-text-secondary: #cbd5e1;
@@ -62,14 +62,14 @@
 }
 
 html.dark {
-  --color-primary-rgb: 143, 211, 255;
-  --color-primary: #8fd3ff;
-  --color-primary-light-dark: #8fd3ff;
-  --color-primary-lighter: #d9f2ff;
-  --color-primary-bg: rgba(143, 211, 255, 0.12);
-  --color-primary-bg-light: rgba(143, 211, 255, 0.05);
-  --color-bg-primary: #070b14;
-  --color-bg-secondary: #0c1220;
+  --color-primary-rgb: 59, 130, 246;
+  --color-primary: #3b82f6;
+  --color-primary-light-dark: #93c5fd;
+  --color-primary-lighter: #dbeafe;
+  --color-primary-bg: rgba(59, 130, 246, 0.12);
+  --color-primary-bg-light: rgba(59, 130, 246, 0.05);
+  --color-bg-primary: #070d1c;
+  --color-bg-secondary: #0c1526;
   --color-text-primary-dark: #ffffff;
   --color-text-secondary-dark: #cbd5e1;
   --color-text-tertiary-dark: #94a3b8;
@@ -113,14 +113,14 @@ html.dark {
   }
 
   .gradient-title {
-    background: linear-gradient(to right, #ffffff, #8fd3ff);
+    background: linear-gradient(to right, #ffffff, #60a5fa);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .gradient-title-light {
-    background: linear-gradient(to right, #b9e5ff, #ffffff);
+    background: linear-gradient(to right, #93c5fd, #ffffff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -174,7 +174,7 @@ html.dark h6 {
 }
 
 html.dark #darkToggle:hover .horizon {
-  border-color: #8fd3ff !important;
+  border-color: #60a5fa !important;
 }
 
 html {
@@ -234,25 +234,25 @@ div::-webkit-scrollbar {
 html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track,
 div::-webkit-scrollbar-track {
-  background: #0c1220 !important;
+  background: #0c1526 !important;
   border-radius: 6px !important;
 }
 
 html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb,
 div::-webkit-scrollbar-thumb {
-  background: #5bbcff !important;
+  background: #2563eb !important;
   border-radius: 6px !important;
 }
 
 html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover,
 div::-webkit-scrollbar-thumb:hover {
-  background: #8fd3ff !important;
+  background: #3b82f6 !important;
 }
 
 html::-webkit-scrollbar-thumb:active,
 body::-webkit-scrollbar-thumb:active,
 div::-webkit-scrollbar-thumb:active {
-  background: #b9e5ff !important;
+  background: #60a5fa !important;
 }

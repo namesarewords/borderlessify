@@ -24,6 +24,8 @@ pnpm-debug.log*
 # IDE
 .idea/
 .vscode/
+.vs/
+*.sln
 *.swp
 *.swo
 *~
