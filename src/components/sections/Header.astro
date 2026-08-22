@@ -1,5 +1,5 @@
 ---
-import { ChevronDown, ChevronRight, Menu, X } from "@lucide/astro";
+import { ChevronRight, Menu, X } from "@lucide/astro";
 import menus from "@/collections/menu.json";
 import Logo from "@/components/ui/Logo.astro";
 ---
@@ -71,43 +71,15 @@ import Logo from "@/components/ui/Logo.astro";
             <span class="text-[10px] font-medium uppercase tracking-[0.14em] text-neutral-400 dark:text-neutral-500">Navigation</span>
           </div>
           {
-            menus.map((menu) => {
-              if (menu.children && menu.children.length > 0) {
-                return (
-                  <div class="dropdown-wrapper relative w-full sm:w-auto" data-open="false">
-                    <button
-                      type="button"
-                      class="dropdown-toggle group relative flex items-center justify-between sm:justify-center w-full sm:w-auto px-3 py-3 sm:py-2 sm:px-3 md:px-4 font-medium tracking-wide duration-200 ease-out rounded-lg sm:rounded-none text-neutral-700 dark:text-neutral-200 hover:text-primary hover:bg-primary/5 sm:hover:bg-transparent dark:hover:text-white dark:hover:bg-primary/10 sm:dark:hover:bg-transparent active:scale-[0.98] sm:active:scale-100 transition-all gap-1 text-left sm:text-center"
-                      aria-expanded="false"
-                      aria-haspopup="true"
-                    >
-                      <span class="flex-1 sm:flex-initial">{menu.name}</span>
-                      <ChevronDown class="dropdown-chevron w-4 h-4 transition-transform duration-200 text-neutral-400 group-hover:text-primary dark:text-neutral-500" />
-                    </button>
-                    <div class="dropdown-panel sm:absolute sm:top-full sm:left-1/2 sm:mt-2 sm:min-w-[200px] sm:rounded-xl sm:border sm:border-dashed sm:border-primary/20 dark:sm:border-neutral-700 sm:bg-white/95 dark:sm:bg-bg-secondary-dark sm:p-2 hidden sm:invisible sm:opacity-0 sm:flex sm:flex-col sm:transition-all sm:duration-200">
-                      {menu.children.map((child) => (
-                        <a
-                          href={child.url}
-                          class="dropdown-link group/link flex items-center justify-between sm:justify-start w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-primary-light hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors duration-150 text-left"
-                        >
-                          <span>{child.name}</span>
-                          <ChevronRight class="w-3.5 h-3.5 sm:hidden text-neutral-300 dark:text-neutral-600 group-hover/link:text-primary transition-colors" />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                );
-              }
-              return (
-                <a
-                  href={menu.url}
-                  class="group relative flex items-center justify-between sm:justify-center w-full sm:w-auto px-3 py-3 sm:py-2 sm:px-3 md:px-4 font-medium tracking-wide duration-200 ease-out rounded-lg sm:rounded-none text-neutral-700 dark:text-neutral-200 hover:text-primary hover:bg-primary/5 sm:hover:bg-transparent dark:hover:text-white dark:hover:bg-primary/10 sm:dark:hover:bg-transparent active:scale-[0.98] sm:active:scale-100 transition-all text-left sm:text-center"
-                >
-                  <span>{menu.name}</span>
-                  <ChevronRight class="w-4 h-4 sm:hidden text-neutral-300 dark:text-neutral-600 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                </a>
-              );
-            })
+            menus.map((menu) => (
+              <a
+                href={menu.url}
+                class="group relative flex items-center justify-between sm:justify-center w-full sm:w-auto px-3 py-3 sm:py-2 sm:px-3 md:px-4 font-medium tracking-wide duration-200 ease-out rounded-lg sm:rounded-none text-neutral-700 dark:text-neutral-200 hover:text-primary hover:bg-primary/5 sm:hover:bg-transparent dark:hover:text-white dark:hover:bg-primary/10 sm:dark:hover:bg-transparent active:scale-[0.98] sm:active:scale-100 transition-all text-left sm:text-center"
+              >
+                <span>{menu.name}</span>
+                <ChevronRight class="w-4 h-4 sm:hidden text-neutral-300 dark:text-neutral-600 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              </a>
+            ))
           }
         </div>
       </div>
@@ -144,20 +116,14 @@ import Logo from "@/components/ui/Logo.astro";
     }
 
     /* Staggered entrance for menu items */
-    #menu:not(.hidden) > div > a,
-    #menu:not(.hidden) > div > .dropdown-wrapper {
+    #menu:not(.hidden) > div > a {
       animation: menuItemIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
     }
-    #menu:not(.hidden) > div > a:nth-child(2),
-    #menu:not(.hidden) > div > .dropdown-wrapper:nth-child(2) { animation-delay: 0.05s; }
-    #menu:not(.hidden) > div > a:nth-child(3),
-    #menu:not(.hidden) > div > .dropdown-wrapper:nth-child(3) { animation-delay: 0.1s; }
-    #menu:not(.hidden) > div > a:nth-child(4),
-    #menu:not(.hidden) > div > .dropdown-wrapper:nth-child(4) { animation-delay: 0.15s; }
-    #menu:not(.hidden) > div > a:nth-child(5),
-    #menu:not(.hidden) > div > .dropdown-wrapper:nth-child(5) { animation-delay: 0.2s; }
-    #menu:not(.hidden) > div > a:nth-child(6),
-    #menu:not(.hidden) > div > .dropdown-wrapper:nth-child(6) { animation-delay: 0.25s; }
+    #menu:not(.hidden) > div > a:nth-child(2) { animation-delay: 0.05s; }
+    #menu:not(.hidden) > div > a:nth-child(3) { animation-delay: 0.1s; }
+    #menu:not(.hidden) > div > a:nth-child(4) { animation-delay: 0.15s; }
+    #menu:not(.hidden) > div > a:nth-child(5) { animation-delay: 0.2s; }
+    #menu:not(.hidden) > div > a:nth-child(6) { animation-delay: 0.25s; }
   }
 
   @keyframes menuItemIn {
@@ -172,8 +138,7 @@ import Logo from "@/components/ui/Logo.astro";
   }
 
   @media (prefers-reduced-motion: reduce) {
-    #menu:not(.hidden) > div > a,
-    #menu:not(.hidden) > div > .dropdown-wrapper {
+    #menu:not(.hidden) > div > a {
       animation: none;
     }
   }
@@ -200,77 +165,6 @@ import Logo from "@/components/ui/Logo.astro";
 
     nav a:hover::after {
       transform: translateX(-50%) scaleX(1);
-    }
-
-    /* Dropdown links inside the panel — no underline, panel has its own hover style */
-    .dropdown-panel a::after {
-      display: none;
-    }
-  }
-
-  /* Dropdown — desktop hover behavior */
-  @media (min-width: 640px) {
-    .dropdown-panel {
-      /* Horizontal centering + entry offset.
-         Using `translate` (the CSS property) avoids stacking with `transform`
-         and gives us a single source of truth for the panel position. */
-      translate: -50% -4px;
-    }
-    .dropdown-wrapper:hover .dropdown-panel,
-    .dropdown-wrapper:focus-within .dropdown-panel,
-    .dropdown-wrapper[data-open="true"] .dropdown-panel {
-      opacity: 1 !important;
-      visibility: visible !important;
-      translate: -50% 0;
-    }
-    .dropdown-wrapper:hover .dropdown-chevron,
-    .dropdown-wrapper:focus-within .dropdown-chevron,
-    .dropdown-wrapper[data-open="true"] .dropdown-chevron {
-      transform: rotate(180deg);
-    }
-    /* Hover bridge — avoids gap between trigger and panel breaking the hover state */
-    .dropdown-wrapper::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      height: 10px;
-    }
-  }
-
-  /* Dropdown — mobile click-to-expand */
-  @media (max-width: 639px) {
-    .dropdown-panel {
-      display: none;
-      width: calc(100% - 0.75rem);
-      margin-left: 0.75rem;
-      padding-left: 0.75rem;
-      margin-top: 0.25rem;
-      margin-bottom: 0.25rem;
-      border-left: 1px dashed rgba(45, 109, 195, 0.3);
-    }
-    .dark .dropdown-panel {
-      border-left-color: rgba(140, 180, 240, 0.25);
-    }
-    .dropdown-wrapper[data-open="true"] .dropdown-panel {
-      display: flex;
-      flex-direction: column;
-      animation: dropdownIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
-    }
-    .dropdown-wrapper[data-open="true"] .dropdown-chevron {
-      transform: rotate(180deg);
-    }
-  }
-
-  @keyframes dropdownIn {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 
@@ -408,52 +302,4 @@ import Logo from "@/components/ui/Logo.astro";
 
   // Add to global scope so inline events can call it
   window.closeMobileMenu = closeMobileMenu;
-
-  // ─── Dropdown menu (mobile click-to-expand) ────────────────────────────
-  const dropdownToggles = document.querySelectorAll<HTMLButtonElement>('.dropdown-toggle');
-
-  function closeAllDropdowns(except?: Element) {
-    document.querySelectorAll<HTMLElement>('.dropdown-wrapper').forEach((w) => {
-      if (w !== except) {
-        w.setAttribute('data-open', 'false');
-        const t = w.querySelector<HTMLButtonElement>('.dropdown-toggle');
-        t?.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-
-  dropdownToggles.forEach((toggle) => {
-    toggle.addEventListener('click', (e) => {
-      // Desktop uses CSS :hover — no JS toggle needed there
-      if (window.innerWidth >= 640) return;
-      e.preventDefault();
-      e.stopPropagation();
-      const wrapper = toggle.closest<HTMLElement>('.dropdown-wrapper');
-      if (!wrapper) return;
-      const isOpen = wrapper.getAttribute('data-open') === 'true';
-      closeAllDropdowns(wrapper);
-      wrapper.setAttribute('data-open', isOpen ? 'false' : 'true');
-      toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-    });
-  });
-
-  // Close dropdowns when navigating via mobile dropdown link — defer so the link still fires
-  document.querySelectorAll<HTMLAnchorElement>('.dropdown-panel a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 640) {
-        // Let the navigation happen; close menu state for next visit
-        setTimeout(() => {
-          closeAllDropdowns();
-          closeMobileMenu();
-        }, 0);
-      }
-    });
-  });
-
-  // Reset dropdown state when resizing across the sm breakpoint
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 640) {
-      closeAllDropdowns();
-    }
-  });
 </script>
