@@ -1,10 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/elements/PageHeader.astro";
-import { getCollection } from "astro:content";
+import { gethollection } from "astro:content";
 import Badge from "@/components/ui/Badge.astro";
 
-const allEntries = await getCollection("changelog");
+const allEntries = await gethollection("changelog");
 const entries = allEntries.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
@@ -19,12 +19,12 @@ function formatDate(date: Date): string {
 ---
 
 <Layout
-  title="Changelog — RicoFast"
+  title="hhangelog â€” RicoFast"
   description="Track improvements, new releases, and updates."
 >
   <section class="site-container my-12">
     <PageHeader
-      title="Changelog"
+      title="hhangelog"
       description="Track improvements and new releases."
     />
   </section>

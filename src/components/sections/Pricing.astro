@@ -1,7 +1,6 @@
 ---
 import Button from "@/components/ui/Button.astro";
-import SectionHeader from "@/components/elements/SectionHeader.astro";
-import { Check, ArrowRight, Sparkles } from "@lucide/astro";
+import { Check } from "@lucide/astro";
 
 interface Props {
   title?: string;
@@ -10,208 +9,72 @@ interface Props {
 }
 
 const {
-  title = "Simple plans",
-  description = "Pick the plan that works for you.",
+  title = "Become a Supporter",
+  description = "Support the project and unlock everything Borderlessify can do.",
   showHeader = true,
 } = Astro.props;
 
-interface Feature {
-  text: string;
-  details?: string[];
-}
-
-const plans = [
-  {
-    name: "Free",
-    price: "$0",
-    suffix: "forever",
-    description: "The essentials to make any window borderless.",
-    features: [
-      { text: "Make window borderless" },
-      { text: "Resize / position windows" },
-    ] as Feature[],
-    cta: "Download",
-    url: "#",
-    popular: false,
-  },
-  {
-    name: "Support",
-    price: "$4",
-    suffix: "AUD / month",
-    description: "~$3–5 AUD subscription. Everything in Free, plus:",
-    features: [
-      {
-        text: "Global hotkeys",
-        details: [
-          "Ctrl + Alt + B → Toggle borderless",
-          "Ctrl + Alt + > → Move window to right monitor",
-          "Ctrl + Alt + < → Move window to left monitor",
-        ],
-      },
-      {
-        text: "Fullscreen support",
-        details: ["Converts fullscreen windows into borderless — not just windowed"],
-      },
-      { text: "Save profiles for games & apps" },
-      { text: "Remember window positions & sizes" },
-      { text: "Multi-monitor support" },
-      { text: "Batch & app-specific rules" },
-      { text: "Themes, GIF themes & gradient themes" },
-      {
-        text: "App profiles",
-        details: [
-          "Minecraft → 1920×1080 → borderless → monitor 2",
-          "Roblox → 1600×900 → borderless → monitor 1",
-          "Discord → 800×600 → always on top",
-        ],
-      },
-      {
-        text: "Automatic detection",
-        details: ["Minecraft.exe detected → Applying Minecraft profile…"],
-      },
-    ] as Feature[],
-    cta: "Become a Supporter",
-    url: "/contact",
-    popular: true,
-  },
+const supporterFeatures = [
+  { text: "Global hotkeys", detail: "Ctrl + Alt + B toggles borderless, Ctrl + Alt + < and > move windows between monitors" },
+  { text: "Fullscreen support", detail: "Converts real fullscreen windows into borderless, not just windowed" },
+  { text: "Save profiles", detail: "Store a layout per game or app and reapply it anytime" },
+  { text: "Remember positions & sizes", detail: "Windows come back exactly where you left them" },
+  { text: "Multi-monitor support", detail: "Send any window to any monitor instantly" },
+  { text: "Batch & app-specific rules", detail: "Arrange game, Discord, and browser in one action" },
+  { text: "Themes", detail: "Gradient themes plus animated GIF themes" },
+  { text: "Automatic detection", detail: "Launch an app and its profile applies itself" },
 ];
 ---
 
 <section class="pricing-section">
-  {showHeader && (
-    <div class="site-container pt-16 md:pt-20" data-aos="fade-up-xs" data-aos-once="true">
-      <SectionHeader title={title} description={description} />
-    </div>
-  )}
+  {
+    showHeader && (
+      <div class="site-container pt-16 md:pt-20" data-aos="fade-up-xs" data-aos-once="true">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100 mb-4">{title}</h2>
+        <p class="max-w-xl text-neutral-400 leading-relaxed">{description}</p>
+      </div>
+    )
+  }
 
-  <!-- Pricing Cards -->
-  <div class="site-container pt-12 pb-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-      {plans.map((plan, i) => (
-        <div
-          class={`relative p-6 md:p-8 rounded-2xl border transition-all duration-300 ${
-            plan.popular
-              ? 'border-primary shadow-lg scale-[1.02] bg-bg-secondary dark:bg-bg-secondary-dark'
-              : 'border-primary/10 dark:border-neutral-700 bg-bg-secondary dark:bg-bg-secondary-dark'
-          }`}
-          data-aos="fade-up-sm"
-          data-aos-delay={i * 100}
-          data-aos-once="true"
-        >
-          {plan.popular && (
-            <div class="popular-badge absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-              <span class="popular-badge__pill">
-                <Sparkles class="w-3.5 h-3.5" stroke-width={2.25} />
-                <span class="popular-badge__label font-brand">Most Popular</span>
-              </span>
-            </div>
-          )}
-
-          <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-100 mb-1">{plan.name}</h3>
-          <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">{plan.description}</p>
-
-          <div class="mb-6">
-            <span class="text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">{plan.price}</span>
-            <span class="text-sm text-neutral-400 ml-1">{plan.suffix}</span>
+  <div class={`site-container ${showHeader ? "pt-10 pb-16" : "pb-16"}`}>
+    <div
+      class="rounded-2xl border border-neutral-800 bg-bg-secondary overflow-hidden"
+      data-aos="fade-up-sm"
+      data-aos-once="true"
+    >
+      <!-- Top: price + CTA -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 p-8 md:p-12 border-b border-neutral-800">
+        <div>
+          <p class="text-sm font-medium uppercase tracking-widest text-primary mb-2">Support</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-5xl md:text-6xl font-bold tracking-tight text-white">$4</span>
+            <span class="text-neutral-400">AUD / month</span>
           </div>
-
-          <ul class="space-y-3 mb-8">
-            {plan.features.map((feature) => (
-              <li class="flex items-start gap-2">
-                <Check class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <div class="min-w-0">
-                  <span class="text-sm text-neutral-600 dark:text-neutral-300">{feature.text}</span>
-                  {feature.details && (
-                    <ul class="mt-1 space-y-0.5">
-                      {feature.details.map((detail) => (
-                        <li class="text-xs text-neutral-400 dark:text-neutral-500 font-mono leading-relaxed">
-                          {detail}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <Button
-            url={plan.url}
-            type={plan.popular ? "fill" : "outline"}
-            className="w-full justify-center"
-          >
-            {plan.cta} {plan.popular && <ArrowRight size={16} />}
-          </Button>
+          <p class="mt-2 text-sm text-neutral-500">Roughly $3-5 AUD depending on region. Cancel anytime.</p>
         </div>
-      ))}
+        <div class="flex-shrink-0">
+          <Button url="/contact" type="fill" size="lg">Become a Supporter</Button>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 p-8 md:p-12">
+        {
+          supporterFeatures.map((feature) => (
+            <li class="flex items-start gap-3">
+              <Check class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+              <div>
+                <span class="block text-sm font-semibold text-neutral-100">{feature.text}</span>
+                <span class="block text-sm text-neutral-400 leading-relaxed mt-0.5">{feature.detail}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
     </div>
+
+    <p class="mt-6 text-sm text-neutral-500" data-aos="fade-up-xs" data-aos-once="true">
+      Every download includes the free essentials: make any window borderless, resize, and position it.
+    </p>
   </div>
 </section>
-
-<style>
-  /* ─── "Most Popular" badge ──────────────────────── */
-  .popular-badge__pill {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.4rem 0.85rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: #fff;
-    background: linear-gradient(
-      120deg,
-      var(--color-primary) 0%,
-      color-mix(in oklab, var(--color-primary) 70%, var(--color-accent)) 55%,
-      var(--color-accent) 100%
-    );
-    box-shadow:
-      0 6px 18px -6px color-mix(in oklab, var(--color-primary) 65%, transparent),
-      0 2px 6px -2px color-mix(in oklab, var(--color-accent) 50%, transparent),
-      inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    isolation: isolate;
-    overflow: hidden;
-  }
-
-  /* Soft outer ring */
-  .popular-badge__pill::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.55),
-      rgba(255, 255, 255, 0) 45%,
-      rgba(255, 255, 255, 0.25)
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  .popular-badge__label {
-    position: relative;
-    z-index: 1;
-    line-height: 1;
-  }
-
-  .popular-badge svg {
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
-  }
-
-  :global(.dark) .popular-badge__pill {
-    box-shadow:
-      0 8px 22px -6px color-mix(in oklab, var(--color-primary) 80%, transparent),
-      0 2px 8px -2px color-mix(in oklab, var(--color-accent) 55%, transparent),
-      inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  }
-</style>

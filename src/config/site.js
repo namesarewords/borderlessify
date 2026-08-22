@@ -14,7 +14,7 @@ export const siteConfig = {
 	},
 	meta:{
 		title: "Borderlessify",
-		description: "Make any game or window borderless — Borderlessify turns fullscreen games and apps into borderless windowed mode instantly.",
+		description: "Make any game or window borderless. Borderlessify turns fullscreen games and apps into borderless windowed mode instantly.",
 		keywords: "borderless window, borderless gaming, borderless fullscreen, windowed mode, fullscreen games, game utility, windows utility, window manager, gaming tool, borderless windowed, pc gaming, game optimization",
 		image: `${SITE_URL}/og.jpg`,
 		twitterHandle: "",
