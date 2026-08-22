@@ -48,11 +48,11 @@ const currentSizeClasses = sizeClasses[size];
   target={type === "disabled" ? undefined : target}
   class={`${
     type === "solid"
-      ? `flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5 ${currentSizeClasses.padding} rounded-xl bg-gradient-to-b from-white to-[#edf1fa] dark:from-[#15233b] dark:to-[#0f1b2d] border-[1px] border-primary/20 dark:border-[#243757] max-w-60 transition duration-400 ease-in-out hover:translate-y-[-2px] hover:shadow-[0px_6px_9px_0_rgba(61,99,171,0.15)] dark:hover:shadow-[0px_6x_9px_0_rgba(59,123,217,0.25)]`
+      ? `flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5 ${currentSizeClasses.padding} rounded-xl bg-gradient-to-b from-white to-[#edf1fa] dark:from-[#2a2a2a] dark:to-[#1e1e1e] border-[1px] border-primary/20 dark:border-[#404040] max-w-60 transition duration-400 ease-in-out hover:translate-y-[-2px] hover:shadow-[0px_6px_9px_0_rgba(61,99,171,0.15)] dark:hover:shadow-[0px_6x_9px_0_rgba(92,157,255,0.25)]`
       : type === "fill"
       ? `flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5 ${currentSizeClasses.padding} rounded-xl bg-btn-primary dark:bg-btn-primary-dark border-[0] border-[rgba(138,127,255,0.2)] shadow-[0px_2px_3px_0_rgba(0,0,0,0.1)] max-w-60 transition duration-400 ease-in-out hover:bg-btn-primary-hover dark:hover:bg-btn-primary-dark-hover hover:translate-y-[-2px] hover:shadow-[0px_6px_9px_0_rgba(61,99,171,0.15)]  dark:shadow-[0px_6px_9px_0_rgba(0,0,0,0.2)]`
       : type === "outline"
-      ? `flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5 ${currentSizeClasses.padding} rounded-xl bg-transparent border-[1px] border-neutral-300 dark:border-neutral-600 max-w-60 transition duration-400 ease-in-out hover:border-primary hover:text-primary hover:translate-y-[-2px]`
+      ? `flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5 ${currentSizeClasses.padding} rounded-xl bg-primary/10 border-[1px] border-primary/40 max-w-60 transition duration-400 ease-in-out hover:bg-primary/20 hover:border-primary hover:-translate-y-[2px] hover:shadow-[0px_6px_9px_0_rgba(37,99,235,0.35)]`
       : type === "disabled"
       ? `flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5 ${currentSizeClasses.padding} rounded-xl bg-gradient-to-b from-neutral-100 to-neutral-200 border-[0.75px] border-neutral-300 max-w-60 cursor-not-allowed opacity-70`
       : `inline-flex w-auto ${currentSizeClasses.padding} mt-5 ${currentSizeClasses.fontSize} font-medium duration-400 ease-out border rounded-full bg-neutral-900 dark:bg-white dark:text-neutral-900 text-neutral-100 hover:border-neutral-700 border-neutral-900 dark:hover:border-neutral-300 hover:bg-white dark:hover:bg-black dark:hover:text-white hover:text-neutral-900 max-w-60`
@@ -66,7 +66,7 @@ const currentSizeClasses = sizeClasses[size];
       <slot />
     </div>
   ) : type === "outline" ? (
-    <div class={`flex gap-1 items-center justify-center ${currentSizeClasses.fontSize} font-medium text-center text-neutral-700 dark:text-neutral-300`}>
+    <div class={`flex gap-1 items-center justify-center ${currentSizeClasses.fontSize} font-medium text-center text-neutral-100 dark:text-neutral-100`}>
       <slot />
     </div>
   ) : type === "fill" ? (

@@ -1,6 +1,6 @@
 // Get site URL from environment variable, use default value if not set
 // Note: Please set the correct PUBLIC_SITE_URL in .env file after first deployment
-const SITE_URL = import.meta.env.PUBLIC_SITE_URL || '';
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://borderlessify.namesarewords.workers.dev';
 
 export const siteConfig = {
 	title: "Borderlessify",
@@ -14,7 +14,7 @@ export const siteConfig = {
 	},
 	meta:{
 		title: "Borderlessify",
-		description: "a program that makes games and windows that dont support borderless. Borderless",
+		description: "Make any game or window borderless — Borderlessify turns fullscreen games and apps into borderless windowed mode instantly.",
 		keywords: "borderless window, borderless gaming, borderless fullscreen, windowed mode, fullscreen games, game utility, windows utility, window manager, gaming tool, borderless windowed, pc gaming, game optimization",
 		image: `${SITE_URL}/og.jpg`,
 		twitterHandle: "",

@@ -1,13 +1,40 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSection from "@/components/home/HeroSection.astro";
+import Pricing from "@/components/sections/Pricing.astro";
+import { siteConfig } from "@/config/site";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Borderlessify",
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "Windows",
+  description:
+    "Borderlessify makes any game or window borderless — even apps without a built-in borderless mode.",
+  url: siteConfig.url || undefined,
+};
+
+const title = "Borderlessify — Make any game or window borderless";
+const description =
+  "Borderlessify makes any game or window borderless — even apps without a built-in borderless mode.";
 ---
 
 <Layout
-  title="Borderlessify — Make any game or window borderless"
-  description="Borderlessify makes any game or window that doesn't support borderless mode, borderless."
+  title={title}
+  description={description}
   keywords="borderless window, borderless gaming, borderless fullscreen, windowed mode, fullscreen games, game utility"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+
   <!-- Hero -->
   <HeroSection />
+
+  <!-- Plans -->
+  <div id="plans" class="scroll-mt-20">
+    <Pricing
+      title="Simple plans"
+      description="Pick the plan that works for you."
+    />
+  </div>
 </Layout>

@@ -13,66 +13,74 @@
   --max-screen: 1200px;
   --inner-screen: 800px;
 
-  --color-neutral-50: #f8fafc;
-  --color-neutral-100: #f1f5f9;
-  --color-neutral-200: #e2e8f0;
-  --color-neutral-300: #cbd5e1;
-  --color-neutral-400: #94a3b8;
-  --color-neutral-500: #64748b;
-  --color-neutral-600: #475569;
-  --color-neutral-700: #334155;
-  --color-neutral-800: #1e293b;
-  --color-neutral-900: #0f172a;
-  --color-neutral-950: #070b14;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #888888;
+  --color-neutral-600: #5c5c5c;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #2a2a2a;
+  --color-neutral-900: #1a1a1a;
+  --color-neutral-950: #0f0f0f;
 
-  --color-primary: #3b82f6;
-  --color-primary-rgb: 59, 130, 246;
-  --color-primary-strong: #2563eb;
-  --color-primary-dark: #1d4ed8;
-  --color-primary-light: #60a5fa;
-  --color-primary-light-dark: #93c5fd;
-  --color-primary-lighter: #dbeafe;
+  --color-primary: #5c9dff;
+  --color-primary-rgb: 92, 157, 255;
+  --color-primary-strong: #4a8de8;
+  --color-primary-dark: #3d76c9;
+  --color-primary-light: #82b4ff;
+  --color-primary-light-dark: #82b4ff;
+  --color-primary-lighter: #cfe2ff;
 
-  --color-primary-bg: rgba(59, 130, 246, 0.12);
-  --color-primary-bg-light: rgba(59, 130, 246, 0.06);
+  --color-primary-bg: rgba(92, 157, 255, 0.12);
+  --color-primary-bg-light: rgba(92, 157, 255, 0.06);
 
-  --color-btn-primary: #2563eb;
-  --color-btn-primary-hover: #1d4ed8;
-  --color-btn-primary-dark: #3b82f6;
-  --color-btn-primary-dark-hover: #60a5fa;
+  --color-btn-primary: #5c9dff;
+  --color-btn-primary-hover: #4a8de8;
+  --color-btn-primary-dark: #5c9dff;
+  --color-btn-primary-dark-hover: #4a8de8;
 
-  --color-accent: #3b82f6;
-  --color-accent-light: #bfdbfe;
+  --color-accent: #5c9dff;
+  --color-accent-light: #cfe2ff;
 
-  --color-bg-primary: #070d1c;
-  --color-bg-secondary: #0c1526;
-  --color-bg-primary-light: #0a1220;
-  --color-bg-primary-deep: #050914;
+  --color-success: #4caf50;
+  --color-success-hover: #45a049;
+  --color-warning: #d4a030;
+  --color-warning-strong: #c7940a;
+  --color-warning-bg: #2a1f0a;
 
-  --color-bg-primary-dark: #070d1c;
-  --color-bg-secondary-dark: #0c1526;
+  --color-select-bg: #2a4a6a;
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #cbd5e1;
-  --color-text-tertiary: #94a3b8;
+  --color-bg-primary: #121212;
+  --color-bg-secondary: #1e1e1e;
+  --color-bg-primary-light: #181818;
+  --color-bg-primary-deep: #0f0f0f;
 
-  --color-text-primary-dark: #ffffff;
-  --color-text-secondary-dark: #cbd5e1;
-  --color-text-tertiary-dark: #94a3b8;
+  --color-bg-primary-dark: #121212;
+  --color-bg-secondary-dark: #1e1e1e;
+
+  --color-text-primary: #e8e8e8;
+  --color-text-secondary: #b3b3b3;
+  --color-text-tertiary: #888888;
+
+  --color-text-primary-dark: #e8e8e8;
+  --color-text-secondary-dark: #b3b3b3;
+  --color-text-tertiary-dark: #888888;
 }
 
 html.dark {
-  --color-primary-rgb: 59, 130, 246;
-  --color-primary: #3b82f6;
-  --color-primary-light-dark: #93c5fd;
-  --color-primary-lighter: #dbeafe;
-  --color-primary-bg: rgba(59, 130, 246, 0.12);
-  --color-primary-bg-light: rgba(59, 130, 246, 0.05);
-  --color-bg-primary: #070d1c;
-  --color-bg-secondary: #0c1526;
-  --color-text-primary-dark: #ffffff;
-  --color-text-secondary-dark: #cbd5e1;
-  --color-text-tertiary-dark: #94a3b8;
+  --color-primary-rgb: 92, 157, 255;
+  --color-primary: #5c9dff;
+  --color-primary-light-dark: #82b4ff;
+  --color-primary-lighter: #cfe2ff;
+  --color-primary-bg: rgba(92, 157, 255, 0.12);
+  --color-primary-bg-light: rgba(92, 157, 255, 0.05);
+  --color-bg-primary: #121212;
+  --color-bg-secondary: #1e1e1e;
+  --color-text-primary-dark: #e8e8e8;
+  --color-text-secondary-dark: #b3b3b3;
+  --color-text-tertiary-dark: #888888;
 }
 
 @layer components {
@@ -113,14 +121,14 @@ html.dark {
   }
 
   .gradient-title {
-    background: linear-gradient(to right, #ffffff, #60a5fa);
+    background: linear-gradient(to right, #ffffff, #5c9dff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .gradient-title-light {
-    background: linear-gradient(to right, #93c5fd, #ffffff);
+    background: linear-gradient(to right, #82b4ff, #ffffff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -157,26 +165,6 @@ html.dark h6 {
   color: #ffffff;
 }
 
-#sun {
-  transform: rotate(0);
-}
-
-#moon {
-  transform: rotate(0);
-}
-
-#darkToggle:hover #sun {
-  transform: rotate(360deg);
-}
-
-#darkToggle:hover #moon {
-  transform: rotate(45deg);
-}
-
-html.dark #darkToggle:hover .horizon {
-  border-color: #60a5fa !important;
-}
-
 html {
   font-family: var(--font-sans);
   scroll-behavior: smooth;
@@ -184,45 +172,6 @@ html {
 
 html.dark {
   color-scheme: dark;
-}
-
-.horizon .setting {
-  animation: 1s ease 0s 1 setting;
-}
-
-.horizon .rising {
-  animation: 1s ease 0s 1 rising;
-}
-
-@keyframes setting {
-  0% {
-    transform: translate3d(0, 10px, 0);
-  }
-
-  40% {
-    transform: translate3d(0, -2px, 0);
-  }
-
-  to {
-    transform: translate3d(0, 30px, 0);
-  }
-}
-
-@keyframes rising {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 30px, 0);
-  }
-
-  40% {
-    opacity: 1;
-    transform: translate3d(0, -2px, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 10px, 0);
-  }
 }
 
 html::-webkit-scrollbar,
@@ -234,25 +183,25 @@ div::-webkit-scrollbar {
 html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track,
 div::-webkit-scrollbar-track {
-  background: #0c1526 !important;
+  background: #1e1e1e !important;
   border-radius: 6px !important;
 }
 
 html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb,
 div::-webkit-scrollbar-thumb {
-  background: #2563eb !important;
+  background: #4a8de8 !important;
   border-radius: 6px !important;
 }
 
 html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover,
 div::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6 !important;
+  background: #5c9dff !important;
 }
 
 html::-webkit-scrollbar-thumb:active,
 body::-webkit-scrollbar-thumb:active,
 div::-webkit-scrollbar-thumb:active {
-  background: #60a5fa !important;
+  background: #82b4ff !important;
 }

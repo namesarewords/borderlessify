@@ -24,7 +24,7 @@ import '../styles/article.css';
 import '../styles/article-enhancements.css';
 ---
 
-<html lang="">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <Meta
@@ -33,16 +33,9 @@ import '../styles/article-enhancements.css';
       keywords = {keywords}
     />
     <TrackGa />
-    <!-- Used to add dark mode right away, adding here prevents any flicker -->
+    <!-- Site is permanently dark-themed; add class immediately to prevent any flicker -->
     <script is:inline>
-      if (typeof Storage !== 'undefined') {
-        if (
-          localStorage.getItem('dark_mode') &&
-          localStorage.getItem('dark_mode') == 'true'
-        ) {
-          document.documentElement.classList.add('dark')
-        }
-      }
+      document.documentElement.classList.add('dark');
     </script>
 
     <link rel="icon" type="image/x-icon" href="/favicon.png" />

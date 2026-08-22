@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://borderlessify.namesarewords.workers.dev/sitemap-index.xml
