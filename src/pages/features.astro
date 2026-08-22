@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/elements/PageHeader.astro";
 import Button from "@/components/ui/Button.astro";
 import {
-  LayoutDashboard, Layers, Filehext, Sparkles, Zap, Palette,
+  LayoutDashboard, Layers, FileText, Sparkles, Zap, Palette,
   ArrowRight, Check
 } from "@lucide/astro";
 
@@ -25,7 +25,7 @@ const featureModules = [
     visual: "blocks",
   },
   {
-    icon: Filehext,
+    icon: FileText,
     title: "Content with full MDX support",
     desc: "Blog and changelog powered by Astro 6 Content Layer. Plain Markdown for prose, imported Astro components for interactive bits. No CMS, no plugin sprawl.",
     points: ["Astro 6 Content Layer with glob loader", "Component imports inside MDX", "hOC + reading progress + share built-in", "Auto RSS feed at /rss.xml"],
