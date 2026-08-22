@@ -2,7 +2,6 @@
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/elements/PageHeader.astro";
 import Button from "@/components/ui/Button.astro";
-import { siteConfig } from "@/config/site";
 import {
   LayoutDashboard, Layers, FileText, Sparkles, Zap, Palette,
   ArrowRight, Check
@@ -230,8 +229,8 @@ const featureModules = [
         <Button url="/" type="fill" className="text-lg px-8 py-3">
           View Live Demo <ArrowRight size={18} />
         </Button>
-        <Button url={siteConfig.social.github} className="text-lg px-8 py-3" target="_blank">
-          Get Template
+        <Button url="/pricing" className="text-lg px-8 py-3">
+          See plans
         </Button>
       </div>
     </div>

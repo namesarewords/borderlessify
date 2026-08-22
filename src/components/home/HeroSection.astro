@@ -2,20 +2,20 @@
 import Button from "@/components/ui/Button.astro";
 ---
 
-<div class="relative z-20 w-full mx-auto px-4">
-  <!-- Soft blue glow behind the hero -->
+<div class="relative z-20 w-full mx-auto">
+  <!-- Soft accent glow behind the hero -->
   <div
-    class="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[720px] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-3xl"
+    class="pointer-events-none absolute left-[12%] top-1/2 -translate-y-1/2 h-[420px] w-[720px] max-w-[80vw] rounded-full bg-primary/20 blur-3xl"
     aria-hidden="true"
   >
   </div>
 
   <div
-    class="relative flex flex-col items-center justify-center text-center max-w-3xl mx-auto pt-24 pb-20 md:pt-32 md:pb-28"
+    class="relative site-container flex flex-col items-start text-left pt-24 pb-16 md:pt-32 md:pb-24"
   >
     <!-- Title -->
     <h1
-      class="text-6xl sm:text-7xl md:text-9xl font-sans font-extrabold tracking-tight text-white leading-none mb-6"
+      class="text-5xl sm:text-6xl md:text-8xl font-sans font-extrabold tracking-tight text-white leading-none mb-6"
       data-aos="fade-up-xs"
       data-aos-once="true"
     >
@@ -32,15 +32,20 @@ import Button from "@/components/ui/Button.astro";
       Make any game or window Borderless
     </p>
 
-    <!-- Buttons -->
+    <!-- Actions -->
     <div
-      class="flex flex-wrap gap-4 justify-center"
+      class="flex flex-wrap items-center gap-6"
       data-aos="fade-up-sm"
       data-aos-once="true"
       data-aos-delay="200"
     >
       <Button url="#" type="fill" size="lg">Download</Button>
-      <Button url="#plans" type="outline" size="lg">Plans</Button>
+      <a
+        href="#plans"
+        class="inline-flex items-center gap-1.5 font-medium text-primary hover:text-primary-strong underline-offset-4 hover:underline transition-colors duration-200"
+      >
+        Become a Supporter!
+      </a>
     </div>
   </div>
 </div>

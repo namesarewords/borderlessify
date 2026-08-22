@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Button from "@/components/ui/Button.astro";
 import { siteConfig } from "@/config/site";
-import { ArrowRight, Bug, Clock3, GitFork, LifeBuoy, Mail, MessageSquare, Send, Sparkles } from "@lucide/astro";
+import { ArrowRight, Bug, Clock3, LifeBuoy, Mail, MessageSquare, Send, Sparkles } from "@lucide/astro";
 
 const contactTopics = [
   { value: "general", label: "General inquiry" },
@@ -20,12 +20,6 @@ const channels = [
     href: `mailto:${siteConfig.mail}`,
   },
   {
-    icon: GitFork,
-    label: "GitHub",
-    text: "Open an issue",
-    href: siteConfig.social.github,
-  },
-  {
     icon: MessageSquare,
     label: "Twitter",
     text: `@${siteConfig.social.twitterName}`,
@@ -41,7 +35,7 @@ const expectations = [
 ---
 
 <Layout
-  title="Contact - RicoFast"
+  title="Contact - Borderlessify"
   description="Have questions, feedback, or partnership ideas? We'd love to hear from you."
 >
   <main class="site-container py-12 md:py-20">

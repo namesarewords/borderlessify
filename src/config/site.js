@@ -4,7 +4,7 @@ const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://borderlessify.names
 
 export const siteConfig = {
 	title: "Borderlessify",
-	author: "RicoUI",
+	author: "Borderlessify",
 	url: SITE_URL,
 	mail: "borderlessify@gmail.com",
 	utm: {
