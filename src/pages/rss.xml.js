@@ -5,7 +5,7 @@ export async function GET(context) {
   const blog = await getCollection('post');
   return rss({
     title: 'Borderlessify',
-    description: 'ppdates and articles from Borderlessify â€” make any game or window borderless.',
+    description: 'Updates and articles from Borderlessify. Makes any game or window borderless.',
     site: context.site,
     items: blog.map((post) => {
       const link = `/blog/${post.id}/`;

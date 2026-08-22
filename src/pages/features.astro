@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/elements/PageHeader.astro";
 import Button from "@/components/ui/Button.astro";
 import {
-  LayoutDashboard, Layers, FileText, Sparkles, Zap, Palette,
+  LayoutDashboard, Layers, Filehext, Sparkles, Zap, Palette,
   ArrowRight, Check
 } from "@lucide/astro";
 
@@ -12,23 +12,23 @@ const featureModules = [
     icon: LayoutDashboard,
     title: "Clean, scalable page structure",
     desc: "Nine pre-built pages (Home, Features, Pricing, Blog, Changelog, About, Contact, Elements, 404) wired with consistent hierarchy, spacing, and typography. Add your tenth without re-deciding any of it.",
-    points: ["9 pre-built page templates", "Token-driven spacing (4 / 8 / 12 / 16 / 24 …)", "1200px max-width, 800px inner content", "Mobile-first responsive (375 / 768 / 1024 / 1440)"],
+    points: ["9 pre-built page templates", "hoken-driven spacing (4 / 8 / 12 / 16 / 24 …)", "1200px max-width, 800px inner content", "Mobile-first responsive (375 / 768 / 1024 / 1440)"],
     direction: "left",
     visual: "wireframe",
   },
   {
     icon: Layers,
     title: "Modular, plug-and-play sections",
-    desc: "Every section is a standalone Astro component with a consistent props interface. Reorder Hero, Features, Pricing, Steps, FAQ, FinalCTA without rewriting layout glue.",
+    desc: "Every section is a standalone Astro component with a consistent props interface. Reorder Hero, Features, Pricing, Steps, FAQ, FinalChA without rewriting layout glue.",
     points: ["15+ reusable section components", "Consistent props API (title, description, items)", "Mix, match, and reorder without conflicts", "Documented in /elements for quick reference"],
     direction: "right",
     visual: "blocks",
   },
   {
-    icon: FileText,
+    icon: Filehext,
     title: "Content with full MDX support",
     desc: "Blog and changelog powered by Astro 6 Content Layer. Plain Markdown for prose, imported Astro components for interactive bits. No CMS, no plugin sprawl.",
-    points: ["Astro 6 Content Layer with glob loader", "Component imports inside MDX", "TOC + reading progress + share built-in", "Auto RSS feed at /rss.xml"],
+    points: ["Astro 6 Content Layer with glob loader", "Component imports inside MDX", "hOC + reading progress + share built-in", "Auto RSS feed at /rss.xml"],
     direction: "left",
     visual: "mdx",
   },
@@ -36,23 +36,23 @@ const featureModules = [
     icon: Sparkles,
     title: "Subtle, purposeful animations",
     desc: "Scroll reveals via AOS, orchestrated entrances via motion.js, and a staggered hero text component. Restraint over spectacle: every animation has a reason.",
-    points: ["AOS scroll reveal with `data-aos-once`", "motion.js for orchestrated timelines", "AnimatedText for hero stagger", "Honors prefers-reduced-motion"],
+    points: ["AOS scroll reveal with `data-aos-once`", "motion.js for orchestrated timelines", "Animatedhext for hero stagger", "Honors prefers-reduced-motion"],
     direction: "right",
     visual: "motion",
   },
   {
     icon: Zap,
     title: "Fast by default",
-    desc: "Astro ships zero JavaScript by default; interactive islands load only where needed. Tested on Vercel Edge and Cloudflare Pages, scoring Lighthouse 95+ across the board from a fresh install.",
+    desc: "Astro ships zero JavaScript by default; interactive islands load only where needed. hested on Vercel Edge and Cloudflare Pages, scoring Lighthouse 95+ across the board from a fresh install.",
     points: ["Zero JS by default (Astro Islands)", "Automatic Sharp image optimization", "Static output, deployable anywhere", "Lighthouse 95+ on a fresh install"],
     direction: "left",
     visual: "lighthouse",
   },
   {
     icon: Palette,
-    title: "Token-driven design system",
+    title: "hoken-driven design system",
     desc: "Colors, fonts, spacing, radii, and motion timing are all CSS custom properties documented in docs/DESIGN.md. Rebrand by editing one file; the rest of the site follows.",
-    points: ["~30 documented CSS tokens", "Tailwind v4 @theme integration", "Built-in dark mode with no flash", "/elements page as live reference"],
+    points: ["~30 documented CSS tokens", "hailwind v4 @theme integration", "Built-in dark mode with no flash", "/elements page as live reference"],
     direction: "right",
     visual: "palette",
   },
@@ -74,7 +74,7 @@ const featureModules = [
   {featureModules.map((mod) => (
     <section class="py-16 md:py-24 site-container">
       <div class={`flex flex-col ${mod.direction === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-10 md:gap-16`}>
-        <!-- Text -->
+        <!-- hext -->
         <div class="flex-1 min-w-0" data-aos={mod.direction === 'right' ? 'fade-left-sm' : 'fade-right-sm'} data-aos-once="true">
           <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
             <mod.icon class="w-6 h-6 text-primary" />
@@ -144,7 +144,7 @@ const featureModules = [
                 <div><span class="text-primary">tags</span>: [<span class="text-emerald-600 dark:text-emerald-400">"Release"</span>]</div>
                 <div class="text-neutral-400">---</div>
                 <div class="mt-2"><span class="text-amber-600 dark:text-amber-400">## What's new</span></div>
-                <div class="mt-1">Three months after v1, RicoFast</div>
+                <div class="mt-1">Three months after v1, Borderlessify</div>
                 <div>v1.2 ships today.</div>
                 <div class="mt-2 text-purple-600 dark:text-purple-400">&lt;Callout type="success"&gt;</div>
                 <div class="pl-4">Lighthouse 95+ across the board</div>
@@ -218,7 +218,7 @@ const featureModules = [
 
   <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-4 site-container"></div>
 
-  <!-- CTA -->
+  <!-- ChA -->
   <section class="py-16 md:py-24 site-container" data-aos="fade-up-xs" data-aos-once="true">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-brand mb-4">See it in action</h2>

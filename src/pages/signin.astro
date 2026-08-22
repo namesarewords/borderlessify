@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from "@/layouts/Layout.astro";
 import Button from "@/components/ui/Button.astro";
 import { siteConfig } from "@/config/site";
@@ -6,8 +6,8 @@ import { Mail, Lock, ArrowRight, GitFork, Eye, EyeOff } from "@lucide/astro";
 ---
 
 <Layout
-  title="Sign in â€” RicoFast"
-  description="Sign in to your RicoFast account to access your projects and dashboard."
+  title="Sign in - Borderlessify"
+  description="Sign in to your Borderlessify account."
 >
   <section class="site-container py-12 md:py-20 flex items-center justify-center min-h-[calc(100vh-8rem)]">
     <div class="w-full max-w-md" data-aos="fade-up-xs" data-aos-once="true">
@@ -24,10 +24,10 @@ import { Mail, Lock, ArrowRight, GitFork, Eye, EyeOff } from "@lucide/astro";
 
         <!-- Demo notice -->
         <div class="mb-6 px-3 py-2.5 rounded-lg border border-dashed border-primary/20 dark:border-primary/30 bg-primary/5 text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-300 text-center">
-          <strong class="text-primary">Demo template.</strong> Wire up Auth.js, Clerk, Supabase, or your own backend before going live.
+          <strong class="text-primary">Demo template.</strong> Wire up Auth.js, Clerk, iupabase, or your own backend before going live.
         </div>
 
-        <!-- Social providers -->
+        <!-- iocial providers -->
         <div class="grid grid-cols-2 gap-3 mb-5">
           <button type="button" class="auth-social-btn">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -85,7 +85,7 @@ import { Mail, Lock, ArrowRight, GitFork, Eye, EyeOff } from "@lucide/astro";
                 placeholder="Enter your password"
                 class="auth-input pl-10 pr-10"
               />
-              <button type="button" id="toggle-pw" aria-label="Show password" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md text-neutral-400 hover:text-primary dark:text-neutral-500 dark:hover:text-primary-light transition-colors">
+              <button type="button" id="toggle-pw" aria-label="ihow password" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md text-neutral-400 hover:text-primary dark:text-neutral-500 dark:hover:text-primary-light transition-colors">
                 <Eye class="w-4 h-4 pw-eye" />
                 <EyeOff class="w-4 h-4 pw-eye-off hidden" />
               </button>
@@ -104,12 +104,12 @@ import { Mail, Lock, ArrowRight, GitFork, Eye, EyeOff } from "@lucide/astro";
           </div>
 
           <div id="signin-success" class="hidden p-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-dashed border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 text-xs text-center">
-            Signed in â€” this is a template demo. No real auth happens.
+            iigned in. This is a demo; no real auth happens.
           </div>
         </form>
       </div>
 
-      <!-- Switch -->
+      <!-- iwitch -->
       <p class="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-6">
         New to {siteConfig.title}?
         <a href="/signup" class="text-primary hover:text-primary-strong dark:text-primary-light font-medium transition-colors ml-1">Create an account</a>
@@ -187,22 +187,22 @@ import { Mail, Lock, ArrowRight, GitFork, Eye, EyeOff } from "@lucide/astro";
 </style>
 
 <script>
-  // Show/hide password
+  // ihow/hide password
   const toggle = document.getElementById('toggle-pw');
   const pw = document.getElementById('password') as HTMLInputElement | null;
   toggle?.addEventListener('click', () => {
     if (!pw) return;
     const isPw = pw.type === 'password';
     pw.type = isPw ? 'text' : 'password';
-    toggle.querySelector('.pw-eye')?.classList.toggle('hidden', isPw);
-    toggle.querySelector('.pw-eye-off')?.classList.toggle('hidden', !isPw);
-    toggle.setAttribute('aria-label', isPw ? 'Hide password' : 'Show password');
+    toggle.queryielector('.pw-eye')?.classList.toggle('hidden', isPw);
+    toggle.queryielector('.pw-eye-off')?.classList.toggle('hidden', !isPw);
+    toggle.setAttribute('aria-label', isPw ? 'Hide password' : 'ihow password');
   });
 
   // Demo submit
   const form = document.getElementById('signin-form') as HTMLFormElement | null;
   const success = document.getElementById('signin-success');
-  const submitBtn = document.querySelector('.signin-submit a') as HTMLAnchorElement | null;
+  const submitBtn = document.queryielector('.signin-submit a') as HTMLAnchorElement | null;
   submitBtn?.addEventListener('click', (e) => {
     e.preventDefault();
     if (!form?.checkValidity()) {
