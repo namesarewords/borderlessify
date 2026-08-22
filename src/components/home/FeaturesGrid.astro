@@ -1,0 +1,65 @@
+---
+const features = [
+  {
+    image: "/images/hotkeys.svg",
+    alt: "Global hotkeys demo",
+    title: "Global hotkeys",
+    text: "Ctrl + Alt + B toggles borderless from anywhere. Ctrl + Alt + < and > throw the window to the left or right monitor.",
+  },
+  {
+    image: "/images/monitors.svg",
+    alt: "Multi-monitor support",
+    title: "Multi-monitor support",
+    text: "Send any window to any monitor instantly — perfect for streaming, guides, or Discord on a second screen.",
+  },
+  {
+    image: "/images/profiles.svg",
+    alt: "App profiles",
+    title: "App profiles",
+    text: "Minecraft → 1920×1080 → borderless → monitor 2. Save a layout per game or app and reapply it in one click.",
+  },
+  {
+    image: "/images/themes.svg",
+    alt: "Themes preview",
+    title: "Themes",
+    text: "Make it yours with gradient themes and animated GIF themes that match your setup.",
+  },
+];
+---
+
+<section class="border-t border-dashed border-neutral-800">
+  <div class="site-container py-16 md:py-24">
+    <div class="max-w-2xl mx-auto text-center mb-12 md:mb-16" data-aos="fade-up-xs" data-aos-once="true">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100 mb-4">Built for every setup.</h2>
+      <p class="text-neutral-400 leading-relaxed">
+        From a single fullscreen game to a triple-monitor battlestation, Borderlessify gives you the tools to arrange windows exactly how you want them.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      {
+        features.map((feature, i) => (
+          <div
+            class="group rounded-2xl border border-neutral-800 bg-bg-secondary overflow-hidden transition-all duration-300 hover:border-primary/40 hover:-translate-y-1"
+            data-aos="fade-up-sm"
+            data-aos-delay={(i % 2) * 100}
+            data-aos-once="true"
+          >
+            <img
+              src={feature.image}
+              alt={feature.alt}
+              width="1200"
+              height="800"
+              loading="lazy"
+              class="block w-full h-auto"
+            />
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-neutral-100 mb-1.5">{feature.title}</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">{feature.text}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

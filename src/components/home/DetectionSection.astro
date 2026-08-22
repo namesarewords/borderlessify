@@ -1,0 +1,65 @@
+---
+import { Check } from "@lucide/astro";
+
+const points = [
+  {
+    title: "Automatic detection.",
+    text: "Launch Minecraft.exe and your Minecraft profile applies itself — position, size, borderless, monitor. No clicks needed.",
+  },
+  {
+    title: "Remember positions & sizes.",
+    text: "Every window comes back exactly where you left it, on the monitor you left it on.",
+  },
+  {
+    title: "Batch & app-specific rules.",
+    text: "Apply a layout to a group of apps at once — game, Discord, and browser arranged in one action.",
+  },
+];
+---
+
+<section class="border-t border-dashed border-neutral-800">
+  <div class="site-container py-16 md:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center max-w-6xl mx-auto">
+      <!-- Text -->
+      <div data-aos="fade-up-xs" data-aos-once="true">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100 mb-4">
+          Set it once.<br />Borderless forever.
+        </h2>
+        <p class="text-neutral-400 leading-relaxed mb-8">
+          Borderlessify watches the apps you choose and restores their perfect window setup automatically — every time they launch.
+        </p>
+
+        <ul class="space-y-6">
+          {
+            points.map((point) => (
+              <li class="flex items-start gap-3">
+                <Check class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <h3 class="text-base font-semibold text-neutral-100">{point.title}</h3>
+                  <p class="text-sm text-neutral-400 leading-relaxed mt-1">{point.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Image -->
+      <div
+        class="rounded-2xl border border-neutral-800 bg-bg-secondary overflow-hidden shadow-[0_24px_70px_-30px_rgba(0,0,0,0.8)]"
+        data-aos="fade-up-sm"
+        data-aos-delay="150"
+        data-aos-once="true"
+      >
+        <img
+          src="/images/detection.svg"
+          alt="Automatic profile detection in Borderlessify"
+          width="1200"
+          height="800"
+          loading="lazy"
+          class="block w-full h-auto"
+        />
+      </div>
+    </div>
+  </div>
+</section>

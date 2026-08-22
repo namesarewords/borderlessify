@@ -1,0 +1,49 @@
+---
+import Button from "@/components/ui/Button.astro";
+
+const props = [
+  {
+    title: "Any window, any game.",
+    text: "Turn fullscreen games and stubborn apps into borderless windows in a single click — no fiddly settings menus.",
+  },
+  {
+    title: "One keystroke away.",
+    text: "Global hotkeys work from anywhere. Toggle borderless or hop between monitors without leaving your game.",
+  },
+  {
+    title: "Set it and forget it.",
+    text: "Profiles remember the position, size, and monitor for every app — applied automatically when they launch.",
+  },
+];
+---
+
+<section class="site-container py-16 md:py-24">
+  <h2
+    class="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100 text-center mb-14 md:mb-20"
+    data-aos="fade-up-xs"
+    data-aos-once="true"
+  >
+    Your windows, your rules.
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 max-w-5xl mx-auto">
+    {
+      props.map((item, i) => (
+        <div data-aos="fade-up-xs" data-aos-delay={i * 100} data-aos-once="true">
+          <h3 class="text-lg font-semibold text-neutral-100 mb-2">{item.title}</h3>
+          <p class="text-sm md:text-base text-neutral-400 leading-relaxed">{item.text}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Free banner -->
+  <div
+    class="mt-16 md:mt-20 flex flex-col items-center gap-5 text-center rounded-2xl border border-primary/20 bg-bg-secondary px-8 py-10 md:py-12"
+    data-aos="fade-up-xs"
+    data-aos-once="true"
+  >
+    <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-neutral-100">Free to start.</h3>
+    <Button url="#plans" type="fill">Download now</Button>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Placeholder image">
+  <rect width="1200" height="800" fill="#181818"/>
+  <rect x="24" y="24" width="1152" height="752" fill="none" stroke="#333333" stroke-width="3" stroke-dasharray="14 12" rx="20"/>
+  <rect x="552" y="270" width="96" height="96" rx="24" fill="#5c9dff" opacity="0.15"/>
+  <rect x="576" y="294" width="48" height="48" rx="12" fill="#5c9dff"/>
+  <text x="600" y="450" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="600" fill="#e8e8e8">App profiles</text>
+  <text x="600" y="498" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#888888">public/images/profiles.svg &#8212; replace with your screenshot</text>
+</svg>

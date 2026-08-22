@@ -1,7 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import HeroSection from "@/components/home/HeroSection.astro";
+import AppShowcase from "@/components/home/AppShowcase.astro";
+import ValueProps from "@/components/home/ValueProps.astro";
+import FeaturesGrid from "@/components/home/FeaturesGrid.astro";
+import DetectionSection from "@/components/home/DetectionSection.astro";
 import Pricing from "@/components/sections/Pricing.astro";
+import FinalCta from "@/components/home/FinalCta.astro";
 import { siteConfig } from "@/config/site";
 
 const structuredData = {
@@ -27,14 +32,29 @@ const description =
 >
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
 
-  <!-- Hero -->
+  <!-- 1. Hero -->
   <HeroSection />
 
-  <!-- Plans -->
+  <!-- 2. App screenshot showcase -->
+  <AppShowcase />
+
+  <!-- 3. Value props + free banner -->
+  <ValueProps />
+
+  <!-- 4. Feature cards -->
+  <FeaturesGrid />
+
+  <!-- 5. Automatic detection -->
+  <DetectionSection />
+
+  <!-- 6. Plans (anchor target for the Plans buttons) -->
   <div id="plans" class="scroll-mt-20">
     <Pricing
       title="Simple plans"
       description="Pick the plan that works for you."
     />
   </div>
+
+  <!-- 7. Final CTA -->
+  <FinalCta />
 </Layout>
