@@ -1,0 +1,11 @@
+# Stripe
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Resend
+RESEND_API_KEY=re_...
+RESEND_FROM_EMAIL=noreply@borderlessify.com
+
+# App URLs
+PUBLIC_SITE_URL=https://borderlessify.com
+APP_URL=https://borderlessify.com

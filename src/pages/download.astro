@@ -1,0 +1,107 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/elements/PageHeader.astro";
+import Button from "@/components/ui/Button.astro";
+import { Download, Monitor, HardDrive, Cpu, ArrowRight } from "@lucide/astro";
+
+const requirements = [
+  { icon: Monitor, label: "Display", value: "Any monitor setup" },
+  { icon: Cpu, label: "OS", value: "Windows 10 / 11 (64-bit)" },
+  { icon: HardDrive, label: "Storage", value: "< 50 MB free space" },
+  { icon: Download, label: "Install size", value: "~30 MB" },
+];
+
+const steps = [
+  { step: 1, title: "Download", description: "Click the download button below to get the installer." },
+  { step: 2, title: "Install", description: "Run the installer and follow the on-screen prompts." },
+  { step: 3, title: "Launch", description: "Open Borderlessify from your Start Menu or desktop shortcut." },
+  { step: 4, title: "Activate Pro (optional)", description: "Go to Settings and enter the email you used at checkout to unlock Pro features." },
+];
+---
+
+<Layout
+  title="Download Borderlessify"
+  description="Download Borderlessify for free and make any game or window borderless on Windows."
+>
+  <section class="site-container my-12">
+    <PageHeader
+      title="Download Borderlessify"
+      description="Free to download. Works on any Windows 10 or 11 PC."
+    />
+  </section>
+
+  <!-- Download CTA -->
+  <section class="site-container py-8 md:py-12" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="max-w-2xl mx-auto text-center rounded-2xl border border-neutral-800 bg-bg-secondary p-10 md:p-16">
+      <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+        <Download class="w-8 h-8 text-primary" />
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-neutral-100 mb-3">
+        Download for Windows
+      </h2>
+      <p class="text-neutral-400 mb-2">Version 1.0.0</p>
+      <p class="text-sm text-neutral-500 mb-8">Free &middot; ~30 MB &middot; Windows 10 / 11 (64-bit)</p>
+      <Button url="https://github.com/borderlessify/Borderlessify/releases/latest" type="fill" size="xl">
+        Download Latest <ArrowRight size={18} />
+      </Button>
+      <p class="mt-6 text-xs text-neutral-600">
+        Requires Windows 10 or later (64-bit). No admin rights needed.
+      </p>
+    </div>
+  </section>
+
+  <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-8 site-container"></div>
+
+  <!-- System Requirements -->
+  <section class="site-container py-16 md:py-24" data-aos="fade-up-xs" data-aos-once="true">
+    <h2 class="text-3xl font-brand text-center mb-8">System Requirements</h2>
+    <div class="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {requirements.map((req) => (
+        <div class="flex items-start gap-4 rounded-xl border border-neutral-800 bg-bg-secondary p-6">
+          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <req.icon class="w-5 h-5 text-primary" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-neutral-100">{req.label}</p>
+            <p class="text-sm text-neutral-400 mt-0.5">{req.value}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 my-8 site-container"></div>
+
+  <!-- Installation Steps -->
+  <section class="site-container py-16 md:py-24" data-aos="fade-up-xs" data-aos-once="true">
+    <h2 class="text-3xl font-brand text-center mb-8">Getting Started</h2>
+    <div class="max-w-2xl mx-auto space-y-8">
+      {steps.map((item) => (
+        <div class="flex items-start gap-6">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <span class="text-sm font-bold text-primary">{item.step}</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-neutral-100">{item.title}</h3>
+            <p class="text-neutral-400 mt-1 leading-relaxed">{item.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="py-16 md:py-24 site-container" data-aos="fade-up-xs" data-aos-once="true">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-brand mb-4">Want even more?</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
+        Upgrade to Pro for global hotkeys, saved profiles, themes, multi-monitor support, and more.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <Button url="/pricing" type="fill" className="text-lg px-8 py-3">
+          See Pro Features <ArrowRight size={18} />
+        </Button>
+      </div>
+    </div>
+  </section>
+</Layout>

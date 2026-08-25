@@ -1,0 +1,30 @@
+{
+  "name": "borderlessify-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-11-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["BorderlessifyWorker"]
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "borderlessify-db",
+      "database_id": "<your-d1-database-id>"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "<your-kv-namespace-id>",
+      "preview_id": "<your-kv-preview-namespace-id>"
+    }
+  ],
+  "vars": {
+    "APP_URL": "https://borderlessify.com",
+    "PUBLIC_SITE_URL": "https://borderlessify.com"
+  }
+}

@@ -9,12 +9,12 @@ interface Props {
 }
 
 const {
-  title = "Become a Supporter",
-  description = "Support the project and unlock everything Borderlessify can do.",
+  title = "Borderlessify Pro",
+  description = "Unlock everything Borderlessify can do.",
   showHeader = true,
 } = Astro.props;
 
-const supporterFeatures = [
+const proFeatures = [
   { text: "Global hotkeys", detail: "Ctrl + Alt + B toggles borderless, Ctrl + Alt + < and > move windows between monitors" },
   { text: "Fullscreen support", detail: "Converts real fullscreen windows into borderless, not just windowed" },
   { text: "Save profiles", detail: "Store a layout per game or app and reapply it anytime" },
@@ -45,22 +45,22 @@ const supporterFeatures = [
       <!-- Top: price + CTA -->
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 p-8 md:p-12 border-b border-neutral-800">
         <div>
-          <p class="text-sm font-medium uppercase tracking-widest text-primary mb-2">Support</p>
+          <p class="text-sm font-medium uppercase tracking-widest text-primary mb-2">Pro</p>
           <div class="flex items-baseline gap-2">
-            <span class="text-5xl md:text-6xl font-bold tracking-tight text-white">$4</span>
-            <span class="text-neutral-400">AUD / month</span>
+            <span class="text-5xl md:text-6xl font-bold tracking-tight text-white">$10</span>
+            <span class="text-neutral-400">one-time</span>
           </div>
-          <p class="mt-2 text-sm text-neutral-500">Roughly $3-5 AUD depending on region. Cancel anytime.</p>
+          <p class="mt-2 text-sm text-neutral-500">Pay once, own it forever. No subscription.</p>
         </div>
         <div class="flex-shrink-0">
-          <Button url="/contact" type="fill" size="lg">Become a Supporter</Button>
+          <Button url="https://buy.stripe.com/PLACEHOLDER" type="fill" size="lg">Get Pro</Button>
         </div>
       </div>
 
       <!-- Features -->
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 p-8 md:p-12">
         {
-          supporterFeatures.map((feature) => (
+          proFeatures.map((feature) => (
             <li class="flex items-start gap-3">
               <Check class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
               <div>
@@ -74,7 +74,7 @@ const supporterFeatures = [
     </div>
 
     <p class="mt-6 text-sm text-neutral-500" data-aos="fade-up-xs" data-aos-once="true">
-      Every download includes the free essentials: make any window borderless, resize, and position it.
+      After purchasing, download Borderlessify and activate Pro inside the application using the email address you purchased with.
     </p>
   </div>
 </section>
