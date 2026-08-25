@@ -18,6 +18,10 @@ pnpm-debug.log*
 .env.production
 .env.production.local
 
+# Worker secrets
+worker/.dev.vars
+worker/node_modules/
+
 # macOS-specific files
 .DS_Store
 
