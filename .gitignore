@@ -21,6 +21,8 @@ pnpm-debug.log*
 # Worker secrets
 worker/.dev.vars
 worker/node_modules/
+worker/package-lock.json
+worker/.wrangler/
 
 # macOS-specific files
 .DS_Store

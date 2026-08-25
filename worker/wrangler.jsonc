@@ -3,24 +3,18 @@
   "main": "src/index.ts",
   "compatibility_date": "2024-11-06",
   "compatibility_flags": ["nodejs_compat"],
-  "migrations": [
-    {
-      "tag": "v1",
-      "new_sqlite_classes": ["BorderlessifyWorker"]
-    }
-  ],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "borderlessify-db",
-      "database_id": "<your-d1-database-id>"
+      "database_id": "6b107bab-35ff-41bb-ae15-25ab4a878e0a"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "<your-kv-namespace-id>",
-      "preview_id": "<your-kv-preview-namespace-id>"
+      "id": "3e9d4fc61bab4882804c5e24d5fa3b4a",
+      "preview_id": "3e9d4fc61bab4882804c5e24d5fa3b4a"
     }
   ],
   "vars": {
