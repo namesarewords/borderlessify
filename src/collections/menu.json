@@ -4,20 +4,12 @@
 		"url": "/"
 	},
 	{
-		"name": "Features",
-		"url": "/features"
-	},
-	{
 		"name": "Download",
 		"url": "/download"
 	},
 	{
 		"name": "Supporter",
 		"url": "/pricing"
-	},
-	{
-		"name": "Changelog",
-		"url": "/changelog"
 	},
 	{
 		"name": "Contact",

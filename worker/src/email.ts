@@ -58,8 +58,8 @@ If you did not request this code, you can safely ignore this email. Do not share
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: env.RESEND_FROM_EMAIL,
-      to: email,
+      from: env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
+      to: [email],
       subject: "Your Borderlessify verification code",
       html,
       text,
