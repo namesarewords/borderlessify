@@ -7,54 +7,54 @@ import Button from "@/components/ui/Button.astro";
 import { Check, X, ArrowRight } from "@lucide/astro";
 
 const comparisonFeatures = [
-  { name: "Make windows borderless", free: true, pro: true },
-  { name: "Resize & position", free: "Basic", pro: "Full" },
-  { name: "Global hotkeys", free: false, pro: true },
-  { name: "Fullscreen support", free: false, pro: true },
-  { name: "Save profiles", free: false, pro: true },
-  { name: "Remember positions & sizes", free: false, pro: true },
-  { name: "Multi-monitor support", free: false, pro: true },
-  { name: "Batch & app-specific rules", free: false, pro: true },
-  { name: "Automatic detection", free: false, pro: true },
-  { name: "Themes (GIF & gradient)", free: false, pro: true },
-  { name: "Support", free: "Community", pro: "Priority email" },
+  { name: "Make windows borderless", free: true, supporter: true },
+  { name: "Resize & position", free: "Basic", supporter: "Full" },
+  { name: "Global hotkeys", free: false, supporter: true },
+  { name: "Fullscreen support", free: false, supporter: true },
+  { name: "Save profiles", free: false, supporter: true },
+  { name: "Remember positions & sizes", free: false, supporter: true },
+  { name: "Multi-monitor support", free: false, supporter: true },
+  { name: "Batch & app-specific rules", free: false, supporter: true },
+  { name: "Automatic detection", free: false, supporter: true },
+  { name: "Themes (GIF & gradient)", free: false, supporter: true },
+  { name: "Support", free: "Community", supporter: "Priority email" },
 ];
 
 const faqItems = [
   {
-    question: "What does Pro include?",
+    question: "What does Supporter include?",
     answer:
       "Everything in Free plus global hotkeys, fullscreen support, saved profiles with remembered positions and sizes, multi-monitor support, batch and app-specific rules, automatic detection, and themes.",
   },
   {
-    question: "How much does Pro cost?",
+    question: "How much does Supporter cost?",
     answer:
-      "Pro is a one-time purchase. Pay once and own it forever — no subscriptions, no recurring fees.",
+      "Supporter is $4 AUD per month. The price is automatically converted to your local currency based on your region. Cancel anytime.",
   },
   {
-    question: "How do I activate Pro?",
+    question: "How do I activate Supporter?",
     answer:
-      "After purchasing, download Borderlessify and enter the email address you used at checkout to activate Pro inside the application.",
+      "After subscribing, download Borderlessify and enter the email address you used at checkout to activate Supporter inside the application.",
   },
   {
     question: "Can I get a refund?",
     answer:
-      "Yes! If you're not satisfied, email borderlessify@gmail.com within 14 days and we'll refund your purchase.",
+      "Yes! If you're not satisfied, email borderlessify@gmail.com within 14 days and we'll refund your subscription.",
   },
 ];
 ---
 
 <Layout
-  title="Borderlessify Pro"
+  title="Borderlessify Supporter"
   description="Unlock the full power of Borderlessify. Global hotkeys, profiles, themes, multi-monitor support, and more."
 >
   <section class="site-container my-12">
     <PageHeader
-      title="Borderlessify Pro"
+      title="Borderlessify Supporter"
       description="Unlock everything Borderlessify can do."
     />
     <p class="max-w-2xl mx-auto text-center text-sm text-neutral-500 dark:text-neutral-400 mt-6 leading-relaxed">
-      Borderlessify is free to download and use. Pro unlocks the power features and keeps development going.
+      Borderlessify is free to download and use. Supporter unlocks the power features and keeps development going.
     </p>
   </section>
 
@@ -71,14 +71,14 @@ const faqItems = [
           <tr class="border-b border-dashed border-neutral-200 dark:border-neutral-700">
             <th class="text-left py-4 pr-8 text-sm font-medium text-neutral-500">Feature</th>
             <th class="text-center py-4 px-4 text-sm font-medium text-neutral-500">Free</th>
-            <th class="text-center py-4 px-4 text-sm font-medium text-primary">Pro</th>
+            <th class="text-center py-4 px-4 text-sm font-medium text-primary">Supporter</th>
           </tr>
         </thead>
         <tbody>
           {comparisonFeatures.map((feature) => (
             <tr class="border-b border-dashed border-neutral-100 dark:border-neutral-800">
               <td class="py-4 pr-8 text-sm text-neutral-700 dark:text-neutral-300">{feature.name}</td>
-              {[feature.free, feature.pro].map((val) => (
+              {[feature.free, feature.supporter].map((val) => (
                 <td class="text-center py-4 px-4">
                   {typeof val === 'boolean' ? (
                     val ? (
@@ -115,14 +115,14 @@ const faqItems = [
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-brand mb-4">Ready to go borderless?</h2>
       <p class="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
-        Every purchase keeps Borderlessify alive and growing. Or grab the free version and go borderless today.
+        Every subscription keeps Borderlessify alive and growing. Or grab the free version and go borderless today.
       </p>
       <div class="flex flex-wrap justify-center gap-3">
         <Button url="/download" type="fill" className="text-lg px-8 py-3">
           Download for Windows <ArrowRight size={18} />
         </Button>
         <Button url="https://buy.stripe.com/PLACEHOLDER" type="solid" className="text-lg px-8 py-3">
-          Get Pro
+          Get Supporter
         </Button>
       </div>
     </div>

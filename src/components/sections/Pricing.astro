@@ -9,7 +9,7 @@ interface Props {
 }
 
 const {
-  title = "Borderlessify Pro",
+  title = "Borderlessify Supporter",
   description = "Unlock everything Borderlessify can do.",
   showHeader = true,
 } = Astro.props;
@@ -45,15 +45,15 @@ const proFeatures = [
       <!-- Top: price + CTA -->
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 p-8 md:p-12 border-b border-neutral-800">
         <div>
-          <p class="text-sm font-medium uppercase tracking-widest text-primary mb-2">Pro</p>
+          <p class="text-sm font-medium uppercase tracking-widest text-primary mb-2">Supporter</p>
           <div class="flex items-baseline gap-2">
-            <span class="text-5xl md:text-6xl font-bold tracking-tight text-white">$10</span>
-            <span class="text-neutral-400">one-time</span>
+            <span class="text-5xl md:text-6xl font-bold tracking-tight text-white">$4</span>
+            <span class="text-neutral-400">/ month</span>
           </div>
-          <p class="mt-2 text-sm text-neutral-500">Pay once, own it forever. No subscription.</p>
+          <p class="mt-2 text-sm text-neutral-500">Billed monthly. Cancel anytime.</p>
         </div>
         <div class="flex-shrink-0">
-          <Button url="https://buy.stripe.com/PLACEHOLDER" type="fill" size="lg">Get Pro</Button>
+          <Button url="https://buy.stripe.com/PLACEHOLDER" type="fill" size="lg">Get Supporter</Button>
         </div>
       </div>
 
@@ -74,7 +74,7 @@ const proFeatures = [
     </div>
 
     <p class="mt-6 text-sm text-neutral-500" data-aos="fade-up-xs" data-aos-once="true">
-      After purchasing, download Borderlessify and activate Pro inside the application using the email address you purchased with.
+      After subscribing, download Borderlessify and activate Supporter inside the application using the email address you subscribed with.
     </p>
   </div>
 </section>
