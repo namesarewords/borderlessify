@@ -153,6 +153,8 @@ auth.post("/set-password", async (c) => {
   }
 
   let email: string;
+  let customerId: string;
+  let subscriptionId: string | null = null;
   try {
     const { default: Stripe } = await import("stripe");
     const stripe = new Stripe(env.STRIPE_SECRET_KEY);
@@ -166,32 +168,71 @@ auth.post("/set-password", async (c) => {
     if (!email) {
       return c.json({ success: false, error: "No email found for this session" }, 400);
     }
+
+    customerId = (session.customer as string) || "";
+    subscriptionId = (session.subscription as string) || null;
   } catch {
     return c.json({ success: false, error: "Invalid or expired session" }, 400);
   }
 
-  const existingUser = await env.DB.prepare(
+  const now = new Date().toISOString();
+
+  let existingUser = await env.DB.prepare(
     "SELECT id, password_hash FROM users WHERE email = ?"
   )
     .bind(email)
     .first();
 
+  // Create user if webhook hasn't fired yet
   if (!existingUser) {
-    return c.json({ success: false, error: "No account found. Please contact support." }, 404);
+    const userId = crypto.randomUUID();
+    await env.DB.prepare(
+      "INSERT INTO users (id, email, stripe_customer_id, created_at) VALUES (?, ?, ?, ?)"
+    )
+      .bind(userId, email, customerId || null, now)
+      .run();
+
+    existingUser = { id: userId, password_hash: null };
+  } else if (!existingUser.password_hash && customerId) {
+    await env.DB.prepare(
+      "UPDATE users SET stripe_customer_id = COALESCE(stripe_customer_id, ?) WHERE id = ?"
+    )
+      .bind(customerId, existingUser.id)
+      .run();
   }
 
   if (existingUser.password_hash) {
     return c.json({ success: false, error: "Password already set. Please sign in or use forgot password." }, 409);
   }
 
-  const sub = await env.DB.prepare(
-    "SELECT id FROM subscriptions WHERE user_id = ? AND status IN ('active', 'trialing') ORDER BY created_at DESC LIMIT 1"
-  )
-    .bind(existingUser.id)
-    .first();
+  // Create subscription record if webhook hasn't fired yet
+  if (subscriptionId) {
+    const existingSub = await env.DB.prepare(
+      "SELECT id FROM subscriptions WHERE stripe_subscription_id = ?"
+    )
+      .bind(subscriptionId)
+      .first();
 
-  if (!sub) {
-    return c.json({ success: false, error: "No active subscription found." }, 403);
+    if (!existingSub) {
+      const { default: Stripe } = await import("stripe");
+      const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+      try {
+        const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+        const periodEnd = new Date(subscription.current_period_end * 1000).toISOString();
+        await env.DB.prepare(
+          "INSERT INTO subscriptions (id, user_id, stripe_subscription_id, status, current_period_end, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        )
+          .bind(crypto.randomUUID(), existingUser.id, subscriptionId, subscription.status, periodEnd, now, now)
+          .run();
+      } catch {
+        // If we can't retrieve, insert with basic info
+        await env.DB.prepare(
+          "INSERT INTO subscriptions (id, user_id, stripe_subscription_id, status, current_period_end, created_at, updated_at) VALUES (?, ?, ?, 'active', ?, ?, ?)"
+        )
+          .bind(crypto.randomUUID(), existingUser.id, subscriptionId, now, now, now)
+          .run();
+      }
+    }
   }
 
   const { hash, salt } = await hashPassword(password);
@@ -205,13 +246,13 @@ auth.post("/set-password", async (c) => {
   const token = generateToken();
   const tokenHash = await hashSHA256(token);
   const newSessionId = crypto.randomUUID();
-  const now = new Date();
-  const expiresAt = new Date(now.getTime() + SESSION_TTL_SECONDS * 1000);
+  const sessionNow = new Date();
+  const expiresAt = new Date(sessionNow.getTime() + SESSION_TTL_SECONDS * 1000);
 
   await env.DB.prepare(
     "INSERT INTO sessions (id, user_id, device_id, token_hash, created_at, expires_at, revoked) VALUES (?, ?, ?, ?, ?, ?, 0)"
   )
-    .bind(newSessionId, existingUser.id, null, tokenHash, now.toISOString(), expiresAt.toISOString())
+    .bind(newSessionId, existingUser.id, null, tokenHash, sessionNow.toISOString(), expiresAt.toISOString())
     .run();
 
   return c.json({
