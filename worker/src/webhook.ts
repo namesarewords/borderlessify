@@ -1,8 +1,12 @@
 import { Hono } from "hono";
 import type { Env } from "./types";
 import Stripe from "stripe";
+import { hashSHA256, generateToken } from "./crypto";
+import { sendSetPasswordEmail } from "./email";
 
 const webhook = new Hono<{ Bindings: Env }>();
+
+const SET_PASSWORD_TTL_SECONDS = 24 * 60 * 60;
 
 webhook.post("/stripe", async (c) => {
   const env = c.env;
@@ -50,10 +54,12 @@ webhook.post("/stripe", async (c) => {
         const now = new Date().toISOString();
 
         let userRow = await env.DB.prepare(
-          "SELECT id, email, stripe_customer_id, created_at FROM users WHERE email = ?"
+          "SELECT id, email, stripe_customer_id, password_hash, created_at FROM users WHERE email = ?"
         )
           .bind(email)
           .first();
+
+        let isNewUser = false;
 
         if (!userRow) {
           const userId = crypto.randomUUID();
@@ -63,13 +69,41 @@ webhook.post("/stripe", async (c) => {
             .bind(userId, email, customerId, now)
             .run();
 
-          userRow = { id: userId, email, stripe_customer_id: customerId, created_at: now };
+          userRow = { id: userId, email, stripe_customer_id: customerId, password_hash: null, created_at: now };
+          isNewUser = true;
         } else if (!userRow.stripe_customer_id) {
           await env.DB.prepare(
             "UPDATE users SET stripe_customer_id = ? WHERE id = ?"
           )
             .bind(customerId, userRow.id)
             .run();
+        }
+
+        if (!userRow.password_hash) {
+          // Invalidate any existing set-password tokens for this user
+          await env.DB.prepare(
+            "UPDATE password_resets SET used = 1 WHERE user_id = ? AND used = 0"
+          )
+            .bind(userRow.id)
+            .run();
+
+          const resetToken = generateToken();
+          const resetTokenHash = await hashSHA256(resetToken);
+          const resetId = crypto.randomUUID();
+          const expiresAt = new Date(Date.now() + SET_PASSWORD_TTL_SECONDS * 1000).toISOString();
+
+          await env.DB.prepare(
+            "INSERT INTO password_resets (id, user_id, token_hash, expires_at, used, created_at) VALUES (?, ?, ?, ?, 0, ?)"
+          )
+            .bind(resetId, userRow.id, resetTokenHash, expiresAt, now)
+            .run();
+
+          try {
+            const setPasswordUrl = `${env.PUBLIC_SITE_URL}/signin?token=${resetToken}`;
+            await sendSetPasswordEmail(env, email, setPasswordUrl);
+          } catch (err) {
+            console.error(`Failed to send set-password email to ${email}`);
+          }
         }
 
         const subscriptionId = session.subscription as string | null;

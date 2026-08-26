@@ -116,7 +116,7 @@ app.get("/api/checkout/public", async (c) => {
           quantity: 1,
         },
       ],
-      success_url: `${env.PUBLIC_SITE_URL}/download?checkout=success`,
+      success_url: `${env.PUBLIC_SITE_URL}/signin?checkout=success`,
       cancel_url: `${env.PUBLIC_SITE_URL}/pricing?checkout=cancelled`,
       allow_promotion_codes: true,
     });

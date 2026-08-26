@@ -5,6 +5,13 @@ import Layout from "@/layouts/Layout.astro";
 <Layout title="Sign In - Borderlessify" description="Sign in to your Borderlessify Supporter account.">
   <section class="site-container my-12 flex items-center justify-center min-h-[70vh]">
     <div class="w-full max-w-md rounded-2xl border border-neutral-800 bg-bg-secondary p-8 md:p-10" id="auth-card">
+
+      <!-- Checkout success banner -->
+      <div id="checkout-banner" class="hidden mb-6 p-4 rounded-lg border border-green-800 bg-green-900/30">
+        <p class="text-sm text-green-300 font-medium">Payment successful!</p>
+        <p class="text-sm text-neutral-400 mt-1">Check your email to set your password, then sign in below.</p>
+      </div>
+
       <!-- Sign In Form -->
       <div id="login-section">
         <h2 class="text-2xl font-bold text-neutral-100 mb-2">Sign in to Supporter</h2>
@@ -64,8 +71,8 @@ import Layout from "@/layouts/Layout.astro";
 
       <!-- Reset Password Form -->
       <div id="reset-section" class="hidden">
-        <h2 class="text-2xl font-bold text-neutral-100 mb-2">Set New Password</h2>
-        <p class="text-sm text-neutral-400 mb-6">Enter your new password below.</p>
+        <h2 class="text-2xl font-bold text-neutral-100 mb-2">Set Your Password</h2>
+        <p class="text-sm text-neutral-400 mb-6">Enter your new password below to activate your account.</p>
 
         <div>
           <label class="block text-sm font-medium text-neutral-300 mb-1.5">New Password</label>
@@ -74,7 +81,7 @@ import Layout from "@/layouts/Layout.astro";
         </div>
 
         <button id="btn-reset" class="w-full mt-4 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors">
-          Reset Password
+          Set Password
         </button>
 
         <p id="reset-error" class="mt-3 text-sm text-red-400 hidden"></p>
@@ -90,10 +97,18 @@ import Layout from "@/layouts/Layout.astro";
   const loginSection = document.getElementById('login-section')!;
   const forgotSection = document.getElementById('forgot-section')!;
   const resetSection = document.getElementById('reset-section')!;
+  const checkoutBanner = document.getElementById('checkout-banner')!;
 
-  // Check for reset token in URL
   const params = new URLSearchParams(window.location.search);
   const resetToken = params.get('token');
+  const checkoutSuccess = params.get('checkout') === 'success';
+
+  // Show checkout success banner
+  if (checkoutSuccess) {
+    checkoutBanner.classList.remove('hidden');
+  }
+
+  // Show reset form if token present
   if (resetToken) {
     loginSection.classList.add('hidden');
     forgotSection.classList.add('hidden');
@@ -182,7 +197,7 @@ import Layout from "@/layouts/Layout.astro";
     }
   });
 
-  // Reset password
+  // Reset / Set password
   document.getElementById('btn-reset')!.addEventListener('click', async () => {
     const password = (document.getElementById('reset-password') as HTMLInputElement).value;
     const errEl = document.getElementById('reset-error')!;
@@ -196,7 +211,7 @@ import Layout from "@/layouts/Layout.astro";
     }
 
     btn.setAttribute('disabled', 'true');
-    btn.textContent = 'Resetting...';
+    btn.textContent = 'Setting password...';
     errEl.classList.add('hidden');
     successEl.classList.add('hidden');
 
@@ -207,8 +222,8 @@ import Layout from "@/layouts/Layout.astro";
         body: JSON.stringify({ token: resetToken, password }),
       });
       const data = await resp.json();
-      if (!data.success) throw new Error(data.error || 'Reset failed');
-      successEl.textContent = 'Password reset successfully! You can now sign in.';
+      if (!data.success) throw new Error(data.error || 'Failed');
+      successEl.textContent = 'Password set! Redirecting to sign in...';
       successEl.classList.remove('hidden');
       setTimeout(() => {
         window.location.href = '/signin';
@@ -218,11 +233,14 @@ import Layout from "@/layouts/Layout.astro";
       errEl.classList.remove('hidden');
     } finally {
       btn.removeAttribute('disabled');
-      btn.textContent = 'Reset Password';
+      btn.textContent = 'Set Password';
     }
   });
 
   // Enter key handlers
+  document.getElementById('login-email')!.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('login-password')!.focus();
+  });
   document.getElementById('login-password')!.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') document.getElementById('btn-login')!.click();
   });
