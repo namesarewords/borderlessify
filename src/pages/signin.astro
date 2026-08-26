@@ -6,12 +6,6 @@ import Layout from "@/layouts/Layout.astro";
   <section class="site-container my-12 flex items-center justify-center min-h-[70vh]">
     <div class="w-full max-w-md rounded-2xl border border-neutral-800 bg-bg-secondary p-8 md:p-10" id="auth-card">
 
-      <!-- Checkout success banner -->
-      <div id="checkout-banner" class="hidden mb-6 p-4 rounded-lg border border-green-800 bg-green-900/30">
-        <p class="text-sm text-green-300 font-medium">Payment successful!</p>
-        <p class="text-sm text-neutral-400 mt-1">Check your email to set your password, then sign in below.</p>
-      </div>
-
       <!-- Sign In Form -->
       <div id="login-section">
         <h2 class="text-2xl font-bold text-neutral-100 mb-2">Sign in to Supporter</h2>
@@ -97,16 +91,9 @@ import Layout from "@/layouts/Layout.astro";
   const loginSection = document.getElementById('login-section')!;
   const forgotSection = document.getElementById('forgot-section')!;
   const resetSection = document.getElementById('reset-section')!;
-  const checkoutBanner = document.getElementById('checkout-banner')!;
 
   const params = new URLSearchParams(window.location.search);
   const resetToken = params.get('token');
-  const checkoutSuccess = params.get('checkout') === 'success';
-
-  // Show checkout success banner
-  if (checkoutSuccess) {
-    checkoutBanner.classList.remove('hidden');
-  }
 
   // Show reset form if token present
   if (resetToken) {
