@@ -116,7 +116,7 @@ app.get("/api/checkout/public", async (c) => {
           quantity: 1,
         },
       ],
-      success_url: `${env.PUBLIC_SITE_URL}/signin?checkout=success`,
+      success_url: `${env.PUBLIC_SITE_URL}/signup?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${env.PUBLIC_SITE_URL}/pricing?checkout=cancelled`,
       allow_promotion_codes: true,
     });
@@ -126,6 +126,25 @@ app.get("/api/checkout/public", async (c) => {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error(`Checkout error: ${message}`);
     return c.json({ success: false, error: message }, 500);
+  }
+});
+
+app.get("/api/checkout/session/:sessionId", async (c) => {
+  const env = c.env;
+  const sessionId = c.req.param("sessionId");
+
+  try {
+    const { default: Stripe } = await import("stripe");
+    const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    return c.json({
+      success: true,
+      data: { email: session.customer_details?.email || null },
+    });
+  } catch {
+    return c.json({ success: false, error: "Invalid session" }, 400);
   }
 });
 

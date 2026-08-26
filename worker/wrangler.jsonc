@@ -19,6 +19,7 @@
   ],
   "vars": {
     "APP_URL": "https://borderlessify.com",
-    "PUBLIC_SITE_URL": "https://borderlessify.com"
+    "PUBLIC_SITE_URL": "https://borderlessify.com",
+    "RESEND_FROM_EMAIL": "Borderlessify <onboarding@resend.dev>"
   }
 }

@@ -132,6 +132,98 @@ auth.post("/register", async (c) => {
   });
 });
 
+auth.post("/set-password", async (c) => {
+  const env = c.env;
+
+  let body: { sessionId?: string; password?: string };
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ success: false, error: "Invalid JSON body" }, 400);
+  }
+
+  const sessionId = body.sessionId?.trim();
+  const password = body.password;
+
+  if (!sessionId) {
+    return c.json({ success: false, error: "Session ID is required" }, 400);
+  }
+  if (!password || !isValidPassword(password)) {
+    return c.json({ success: false, error: "Password must be between 8 and 128 characters" }, 400);
+  }
+
+  let email: string;
+  try {
+    const { default: Stripe } = await import("stripe");
+    const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (session.payment_status !== "paid") {
+      return c.json({ success: false, error: "Payment not completed" }, 400);
+    }
+
+    email = session.customer_details?.email?.toLowerCase().trim() || "";
+    if (!email) {
+      return c.json({ success: false, error: "No email found for this session" }, 400);
+    }
+  } catch {
+    return c.json({ success: false, error: "Invalid or expired session" }, 400);
+  }
+
+  const existingUser = await env.DB.prepare(
+    "SELECT id, password_hash FROM users WHERE email = ?"
+  )
+    .bind(email)
+    .first();
+
+  if (!existingUser) {
+    return c.json({ success: false, error: "No account found. Please contact support." }, 404);
+  }
+
+  if (existingUser.password_hash) {
+    return c.json({ success: false, error: "Password already set. Please sign in or use forgot password." }, 409);
+  }
+
+  const sub = await env.DB.prepare(
+    "SELECT id FROM subscriptions WHERE user_id = ? AND status IN ('active', 'trialing') ORDER BY created_at DESC LIMIT 1"
+  )
+    .bind(existingUser.id)
+    .first();
+
+  if (!sub) {
+    return c.json({ success: false, error: "No active subscription found." }, 403);
+  }
+
+  const { hash, salt } = await hashPassword(password);
+
+  await env.DB.prepare(
+    "UPDATE users SET password_hash = ?, password_salt = ? WHERE id = ?"
+  )
+    .bind(hash, salt, existingUser.id)
+    .run();
+
+  const token = generateToken();
+  const tokenHash = await hashSHA256(token);
+  const newSessionId = crypto.randomUUID();
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + SESSION_TTL_SECONDS * 1000);
+
+  await env.DB.prepare(
+    "INSERT INTO sessions (id, user_id, device_id, token_hash, created_at, expires_at, revoked) VALUES (?, ?, ?, ?, ?, ?, 0)"
+  )
+    .bind(newSessionId, existingUser.id, null, tokenHash, now.toISOString(), expiresAt.toISOString())
+    .run();
+
+  return c.json({
+    success: true,
+    data: {
+      token,
+      user: { id: existingUser.id, email },
+      expires_at: expiresAt.toISOString(),
+    },
+  });
+});
+
 auth.post("/login", async (c) => {
   const env = c.env;
 
@@ -250,13 +342,13 @@ auth.post("/forgot-password", async (c) => {
   }
 
   const userRow = await env.DB.prepare(
-    "SELECT id FROM users WHERE email = ?"
+    "SELECT id, password_hash FROM users WHERE email = ?"
   )
     .bind(email)
     .first();
 
-  if (!userRow) {
-    return c.json({ success: true, data: { message: "If an account with that email exists, a reset link has been sent." } });
+  if (!userRow || !userRow.password_hash) {
+    return c.json({ success: false, error: "No account found. Please purchase Supporter first." }, 404);
   }
 
   await env.DB.prepare(

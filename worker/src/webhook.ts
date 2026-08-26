@@ -99,10 +99,11 @@ webhook.post("/stripe", async (c) => {
             .run();
 
           try {
-            const setPasswordUrl = `${env.PUBLIC_SITE_URL}/signin?token=${resetToken}`;
-            await sendSetPasswordEmail(env, email, setPasswordUrl);
+            const signupUrl = `${env.PUBLIC_SITE_URL}/signup?session_id=${session.id}&email=${encodeURIComponent(email)}`;
+            await sendSetPasswordEmail(env, email, signupUrl);
           } catch (err) {
-            console.error(`Failed to send set-password email to ${email}`);
+            const msg = err instanceof Error ? err.message : "Unknown error";
+            console.error(`Failed to send set-password email to ${email}: ${msg}`);
           }
         }
 
