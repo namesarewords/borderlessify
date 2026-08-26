@@ -317,11 +317,19 @@ auth.post("/login", async (c) => {
   const sessionId = crypto.randomUUID();
   const now = new Date();
   const expiresAt = new Date(now.getTime() + SESSION_TTL_SECONDS * 1000);
+  const clientIp = c.req.header("CF-Connecting-IP") || c.req.header("X-Forwarded-For")?.split(",")[0]?.trim() || "unknown";
+
+  // Revoke all other sessions from different IPs
+  await env.DB.prepare(
+    "UPDATE sessions SET revoked = 1 WHERE user_id = ? AND revoked = 0 AND (ip_address != ? OR ip_address IS NULL)"
+  )
+    .bind(userRow.id, clientIp)
+    .run();
 
   await env.DB.prepare(
-    "INSERT INTO sessions (id, user_id, device_id, token_hash, created_at, expires_at, revoked) VALUES (?, ?, ?, ?, ?, ?, 0)"
+    "INSERT INTO sessions (id, user_id, device_id, token_hash, created_at, expires_at, revoked, ip_address) VALUES (?, ?, ?, ?, ?, ?, 0, ?)"
   )
-    .bind(sessionId, userRow.id, deviceId || null, tokenHash, now.toISOString(), expiresAt.toISOString())
+    .bind(sessionId, userRow.id, deviceId || null, tokenHash, now.toISOString(), expiresAt.toISOString(), clientIp)
     .run();
 
   if (deviceId) {
