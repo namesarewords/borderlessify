@@ -1,0 +1,235 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Sign In - Borderlessify" description="Sign in to your Borderlessify Supporter account.">
+  <section class="site-container my-12 flex items-center justify-center min-h-[70vh]">
+    <div class="w-full max-w-md rounded-2xl border border-neutral-800 bg-bg-secondary p-8 md:p-10" id="auth-card">
+      <!-- Sign In Form -->
+      <div id="login-section">
+        <h2 class="text-2xl font-bold text-neutral-100 mb-2">Sign in to Supporter</h2>
+        <p class="text-sm text-neutral-400 mb-6">Enter your email and password to access Supporter features.</p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-neutral-300 mb-1.5">Email</label>
+            <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email"
+              class="w-full px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-sm" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-neutral-300 mb-1.5">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password"
+              class="w-full px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-sm" />
+          </div>
+        </div>
+
+        <div class="flex justify-end mt-2">
+          <button id="btn-forgot" class="text-xs text-primary hover:underline transition-colors">Forgot password?</button>
+        </div>
+
+        <button id="btn-login" class="w-full mt-4 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors">
+          Sign In
+        </button>
+
+        <p id="login-error" class="mt-3 text-sm text-red-400 hidden"></p>
+
+        <p class="mt-6 text-center text-sm text-neutral-500 border-t border-neutral-800 pt-6">
+          Don't have Supporter?
+          <a href="/pricing" class="text-primary hover:underline font-medium">Get Supporter</a>
+        </p>
+      </div>
+
+      <!-- Forgot Password Form -->
+      <div id="forgot-section" class="hidden">
+        <h2 class="text-2xl font-bold text-neutral-100 mb-2">Reset Password</h2>
+        <p class="text-sm text-neutral-400 mb-6">Enter your email and we'll send you a link to reset your password.</p>
+
+        <div>
+          <label class="block text-sm font-medium text-neutral-300 mb-1.5">Email</label>
+          <input type="email" id="forgot-email" placeholder="you@example.com" autocomplete="email"
+            class="w-full px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-sm" />
+        </div>
+
+        <button id="btn-send-reset" class="w-full mt-4 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors">
+          Send Reset Link
+        </button>
+
+        <p id="forgot-error" class="mt-3 text-sm text-red-400 hidden"></p>
+        <p id="forgot-success" class="mt-3 text-sm text-green-400 hidden"></p>
+
+        <button id="btn-back" class="mt-6 w-full text-center text-sm text-neutral-400 hover:text-neutral-200 transition-colors">
+          &larr; Back to Sign In
+        </button>
+      </div>
+
+      <!-- Reset Password Form -->
+      <div id="reset-section" class="hidden">
+        <h2 class="text-2xl font-bold text-neutral-100 mb-2">Set New Password</h2>
+        <p class="text-sm text-neutral-400 mb-6">Enter your new password below.</p>
+
+        <div>
+          <label class="block text-sm font-medium text-neutral-300 mb-1.5">New Password</label>
+          <input type="password" id="reset-password" placeholder="At least 8 characters" autocomplete="new-password"
+            class="w-full px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-sm" />
+        </div>
+
+        <button id="btn-reset" class="w-full mt-4 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors">
+          Reset Password
+        </button>
+
+        <p id="reset-error" class="mt-3 text-sm text-red-400 hidden"></p>
+        <p id="reset-success" class="mt-3 text-sm text-green-400 hidden"></p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const WORKER = 'https://borderlessify-worker.namesarewords.workers.dev';
+
+  const loginSection = document.getElementById('login-section')!;
+  const forgotSection = document.getElementById('forgot-section')!;
+  const resetSection = document.getElementById('reset-section')!;
+
+  // Check for reset token in URL
+  const params = new URLSearchParams(window.location.search);
+  const resetToken = params.get('token');
+  if (resetToken) {
+    loginSection.classList.add('hidden');
+    forgotSection.classList.add('hidden');
+    resetSection.classList.remove('hidden');
+  }
+
+  // Sign In
+  document.getElementById('btn-login')!.addEventListener('click', async () => {
+    const email = (document.getElementById('login-email') as HTMLInputElement).value.trim();
+    const password = (document.getElementById('login-password') as HTMLInputElement).value;
+    const errEl = document.getElementById('login-error')!;
+    const btn = document.getElementById('btn-login')!;
+
+    if (!email || !password) {
+      errEl.textContent = 'Please enter email and password.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    btn.setAttribute('disabled', 'true');
+    btn.textContent = 'Signing in...';
+    errEl.classList.add('hidden');
+
+    try {
+      const resp = await fetch(`${WORKER}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await resp.json();
+      if (!data.success) throw new Error(data.error || 'Login failed');
+      window.location.href = '/download?signin=success';
+    } catch (e) {
+      errEl.textContent = (e as Error).message;
+      errEl.classList.remove('hidden');
+    } finally {
+      btn.removeAttribute('disabled');
+      btn.textContent = 'Sign In';
+    }
+  });
+
+  // Forgot password
+  document.getElementById('btn-forgot')!.addEventListener('click', () => {
+    loginSection.classList.add('hidden');
+    forgotSection.classList.remove('hidden');
+  });
+
+  document.getElementById('btn-back')!.addEventListener('click', () => {
+    forgotSection.classList.add('hidden');
+    resetSection.classList.add('hidden');
+    loginSection.classList.remove('hidden');
+  });
+
+  document.getElementById('btn-send-reset')!.addEventListener('click', async () => {
+    const email = (document.getElementById('forgot-email') as HTMLInputElement).value.trim();
+    const errEl = document.getElementById('forgot-error')!;
+    const successEl = document.getElementById('forgot-success')!;
+    const btn = document.getElementById('btn-send-reset')!;
+
+    if (!email) {
+      errEl.textContent = 'Please enter your email.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    btn.setAttribute('disabled', 'true');
+    btn.textContent = 'Sending...';
+    errEl.classList.add('hidden');
+    successEl.classList.add('hidden');
+
+    try {
+      const resp = await fetch(`${WORKER}/api/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await resp.json();
+      successEl.textContent = data.data?.message || 'If an account with that email exists, a reset link has been sent.';
+      successEl.classList.remove('hidden');
+    } catch (e) {
+      errEl.textContent = (e as Error).message;
+      errEl.classList.remove('hidden');
+    } finally {
+      btn.removeAttribute('disabled');
+      btn.textContent = 'Send Reset Link';
+    }
+  });
+
+  // Reset password
+  document.getElementById('btn-reset')!.addEventListener('click', async () => {
+    const password = (document.getElementById('reset-password') as HTMLInputElement).value;
+    const errEl = document.getElementById('reset-error')!;
+    const successEl = document.getElementById('reset-success')!;
+    const btn = document.getElementById('btn-reset')!;
+
+    if (!password || password.length < 8) {
+      errEl.textContent = 'Password must be at least 8 characters.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    btn.setAttribute('disabled', 'true');
+    btn.textContent = 'Resetting...';
+    errEl.classList.add('hidden');
+    successEl.classList.add('hidden');
+
+    try {
+      const resp = await fetch(`${WORKER}/api/auth/reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: resetToken, password }),
+      });
+      const data = await resp.json();
+      if (!data.success) throw new Error(data.error || 'Reset failed');
+      successEl.textContent = 'Password reset successfully! You can now sign in.';
+      successEl.classList.remove('hidden');
+      setTimeout(() => {
+        window.location.href = '/signin';
+      }, 2000);
+    } catch (e) {
+      errEl.textContent = (e as Error).message;
+      errEl.classList.remove('hidden');
+    } finally {
+      btn.removeAttribute('disabled');
+      btn.textContent = 'Reset Password';
+    }
+  });
+
+  // Enter key handlers
+  document.getElementById('login-password')!.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('btn-login')!.click();
+  });
+  document.getElementById('forgot-email')!.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('btn-send-reset')!.click();
+  });
+  document.getElementById('reset-password')!.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('btn-reset')!.click();
+  });
+</script>

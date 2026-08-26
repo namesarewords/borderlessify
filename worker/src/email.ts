@@ -1,9 +1,9 @@
 import type { Env } from "./types";
 
-export async function sendVerificationCode(
+export async function sendPasswordResetEmail(
   env: Env,
   email: string,
-  code: string
+  resetUrl: string
 ): Promise<void> {
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -23,12 +23,12 @@ export async function sendVerificationCode(
           </tr>
           <tr>
             <td style="padding:40px;">
-              <h2 style="color:#18181b;font-size:20px;margin:0 0 16px 0;font-weight:600;">Verify your email</h2>
-              <p style="color:#52525b;font-size:14px;line-height:1.6;margin:0 0 24px 0;">Use the following code to sign in to your Borderlessify account. This code expires in 10 minutes.</p>
-              <div style="background-color:#f4f4f5;border-radius:8px;padding:20px;text-align:center;margin:0 0 24px 0;">
-                <span style="font-size:32px;font-weight:700;color:#18181b;letter-spacing:8px;font-family:monospace;">${code}</span>
+              <h2 style="color:#18181b;font-size:20px;margin:0 0 16px 0;font-weight:600;">Reset your password</h2>
+              <p style="color:#52525b;font-size:14px;line-height:1.6;margin:0 0 24px 0;">Click the button below to reset your password. This link expires in 1 hour.</p>
+              <div style="text-align:center;margin:0 0 24px 0;">
+                <a href="${resetUrl}" style="display:inline-block;padding:12px 32px;background-color:#5c9dff;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;border-radius:8px;">Reset Password</a>
               </div>
-              <p style="color:#a1a1aa;font-size:12px;line-height:1.5;margin:0;">If you did not request this code, you can safely ignore this email. Do not share this code with anyone.</p>
+              <p style="color:#a1a1aa;font-size:12px;line-height:1.5;margin:0;">If you did not request this, you can safely ignore this email.</p>
             </td>
           </tr>
           <tr>
@@ -43,13 +43,13 @@ export async function sendVerificationCode(
 </body>
 </html>`;
 
-  const text = `Borderlessify - Verify your email
+  const text = `Borderlessify - Reset your password
 
-Your verification code is: ${code}
+Click the link below to reset your password. This link expires in 1 hour.
 
-This code expires in 10 minutes.
+${resetUrl}
 
-If you did not request this code, you can safely ignore this email. Do not share this code with anyone.`;
+If you did not request this, you can safely ignore this email.`;
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -60,7 +60,7 @@ If you did not request this code, you can safely ignore this email. Do not share
     body: JSON.stringify({
       from: env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
       to: [email],
-      subject: "Your Borderlessify verification code",
+      subject: "Reset your Borderlessify password",
       html,
       text,
     }),

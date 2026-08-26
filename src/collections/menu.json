@@ -12,6 +12,10 @@
 		"url": "/pricing"
 	},
 	{
+		"name": "Sign In",
+		"url": "/signin"
+	},
+	{
 		"name": "Contact",
 		"url": "/contact"
 	}

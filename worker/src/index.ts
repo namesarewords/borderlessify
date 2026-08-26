@@ -104,23 +104,29 @@ app.get("/api/checkout/public", async (c) => {
     return c.json({ success: false, error: "Missing price_id" }, 400);
   }
 
-  const { default: Stripe } = await import("stripe");
-  const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+  try {
+    const { default: Stripe } = await import("stripe");
+    const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
-  const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "subscription",
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
-    success_url: `${env.PUBLIC_SITE_URL}/download?checkout=success`,
-    cancel_url: `${env.PUBLIC_SITE_URL}/pricing?checkout=cancelled`,
-    allow_promotion_codes: true,
-  });
+    const checkoutSession = await stripe.checkout.sessions.create({
+      mode: "subscription",
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      success_url: `${env.PUBLIC_SITE_URL}/download?checkout=success`,
+      cancel_url: `${env.PUBLIC_SITE_URL}/pricing?checkout=cancelled`,
+      allow_promotion_codes: true,
+    });
 
-  return c.redirect(checkoutSession.url!, 302);
+    return c.redirect(checkoutSession.url!, 302);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error(`Checkout error: ${message}`);
+    return c.json({ success: false, error: message }, 500);
+  }
 });
 
 app.post("/api/checkout", async (c) => {
