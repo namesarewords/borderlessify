@@ -24,7 +24,7 @@ webhook.post("/stripe", async (c) => {
   let event: Stripe.Event;
   try {
     const stripe = new Stripe(env.STRIPE_SECRET_KEY);
-    event = stripe.webhooks.constructEvent(
+    event = await stripe.webhooks.constructEventAsync(
       body,
       signature,
       env.STRIPE_WEBHOOK_SECRET
@@ -109,39 +109,44 @@ webhook.post("/stripe", async (c) => {
 
         const subscriptionId = session.subscription as string | null;
         if (subscriptionId) {
-          const stripe = new Stripe(env.STRIPE_SECRET_KEY);
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+          try {
+            const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+            const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
-          const existingSub = await env.DB.prepare(
-            "SELECT id FROM subscriptions WHERE stripe_subscription_id = ?"
-          )
-            .bind(subscriptionId)
-            .first();
-
-          const periodEnd = new Date(
-            subscription.current_period_end * 1000
-          ).toISOString();
-
-          if (existingSub) {
-            await env.DB.prepare(
-              "UPDATE subscriptions SET status = ?, current_period_end = ?, updated_at = ? WHERE stripe_subscription_id = ?"
+            const existingSub = await env.DB.prepare(
+              "SELECT id FROM subscriptions WHERE stripe_subscription_id = ?"
             )
-              .bind(subscription.status, periodEnd, now, subscriptionId)
-              .run();
-          } else {
-            await env.DB.prepare(
-              "INSERT INTO subscriptions (id, user_id, stripe_subscription_id, status, current_period_end, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
-            )
-              .bind(
-                crypto.randomUUID(),
-                userRow.id,
-                subscriptionId,
-                subscription.status,
-                periodEnd,
-                now,
-                now
+              .bind(subscriptionId)
+              .first();
+
+            const periodEnd = new Date(
+              subscription.current_period_end * 1000
+            ).toISOString();
+
+            if (existingSub) {
+              await env.DB.prepare(
+                "UPDATE subscriptions SET status = ?, current_period_end = ?, updated_at = ? WHERE stripe_subscription_id = ?"
               )
-              .run();
+                .bind(subscription.status, periodEnd, now, subscriptionId)
+                .run();
+            } else {
+              await env.DB.prepare(
+                "INSERT INTO subscriptions (id, user_id, stripe_subscription_id, status, current_period_end, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+              )
+                .bind(
+                  crypto.randomUUID(),
+                  userRow.id,
+                  subscriptionId,
+                  subscription.status,
+                  periodEnd,
+                  now,
+                  now
+                )
+                .run();
+            }
+          } catch (err) {
+            const msg = err instanceof Error ? err.message : "Unknown error";
+            console.error(`checkout.session.completed: failed to sync subscription ${subscriptionId}: ${msg}`);
           }
         }
 
@@ -215,18 +220,23 @@ webhook.post("/stripe", async (c) => {
         const subscriptionId = invoice.subscription as string | null;
 
         if (subscriptionId) {
-          const stripe = new Stripe(env.STRIPE_SECRET_KEY);
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-          const now = new Date().toISOString();
-          const periodEnd = new Date(
-            subscription.current_period_end * 1000
-          ).toISOString();
+          try {
+            const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+            const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+            const now = new Date().toISOString();
+            const periodEnd = new Date(
+              subscription.current_period_end * 1000
+            ).toISOString();
 
-          await env.DB.prepare(
-            "UPDATE subscriptions SET status = ?, current_period_end = ?, updated_at = ? WHERE stripe_subscription_id = ?"
-          )
-            .bind(subscription.status, periodEnd, now, subscriptionId)
-            .run();
+            await env.DB.prepare(
+              "UPDATE subscriptions SET status = ?, current_period_end = ?, updated_at = ? WHERE stripe_subscription_id = ?"
+            )
+              .bind(subscription.status, periodEnd, now, subscriptionId)
+              .run();
+          } catch (err) {
+            const msg = err instanceof Error ? err.message : "Unknown error";
+            console.error(`invoice.paid: failed to sync subscription ${subscriptionId}: ${msg}`);
+          }
         }
 
         break;
